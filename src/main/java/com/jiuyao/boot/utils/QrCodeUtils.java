@@ -56,6 +56,7 @@ public class QrCodeUtils {
         if (logoPath == null || "".equals(logoPath)) {
             return image;
         }
+        System.out.println("aaaa");
         // 插入图片
         QrCodeUtils.insertImage(image, logoPath, needCompress);
         return image;
