@@ -90,6 +90,7 @@ public class QrCodeUtils {
                 g.dispose();
                 src = image;
             }
+            System.out.println("aaaaa");
             // 插入LOGO
             Graphics2D graph = source.createGraphics();
             int x = (QRCODE_SIZE - width) / 2;
