@@ -11,12 +11,17 @@ public class Salesman {
     /**
      * 业务人员推广码
      */
-    private String salesmanId;
+    private Integer salesmanId;
 
     /**
      * 业务人员姓名
      */
     private String salesmanName;
+
+    /**
+     * 业务员密码
+     */
+    private String salesmanPassword;
 
     /**
      * 业务人员电话
@@ -37,4 +42,5 @@ public class Salesman {
      * 创建时间
      */
     private Date createTime;
+
 }

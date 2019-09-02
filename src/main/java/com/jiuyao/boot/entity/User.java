@@ -13,16 +13,12 @@ public class User {
     /**
      * 用户id
      */
-    private String userId;
+    private Integer userId;
 
     /**
      * 业务人员推广码
      */
     private String salesmanId;
-    /**
-     * 用户身份证
-     */
-    private String userIdCard;
 
     /**
      * 用户电话
@@ -33,6 +29,11 @@ public class User {
      * 用户姓名
      */
     private String userName;
+
+    /**
+     * 用户密码
+     */
+    private String password;
 
     /**
      * 创建时间

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyao.boot.mapper.UserMapper">
+  <resultMap id="UserMap" type="com.jiuyao.boot.entity.User">
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="salesman_id" jdbcType="VARCHAR" property="salesmanId" />
+      <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="password" jdbcType="VARCHAR" property="password" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+    <insert id="save" parameterType="com.jiuyao.boot.entity.User">
+        insert into user
+            (salesman_id,user_phone,user_name,password,create_time)
+        values
+            (#{salesmanId,jdbcType=VARCHAR},
+             #{userPhone,jdbcType=VARCHAR},
+             #{userName,jdbcType=VARCHAR},
+             #{password,jdbcType=VARCHAR},
+             #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+</mapper>
