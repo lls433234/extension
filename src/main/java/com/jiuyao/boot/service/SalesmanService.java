@@ -2,6 +2,8 @@ package com.jiuyao.boot.service;
 
 import com.jiuyao.boot.entity.Salesman;
 
+import java.util.List;
+
 public interface SalesmanService {
 
     int register(Salesman salesman);
@@ -12,4 +14,6 @@ public interface SalesmanService {
      * @return
      */
     String addSalesman(Salesman salesman);
+
+    List<Salesman> getAll();
 }

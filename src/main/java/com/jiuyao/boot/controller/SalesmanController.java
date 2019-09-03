@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +28,7 @@ public class SalesmanController {
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
     public String salesmanRegister(Salesman salesman){
+        log.info("业务人员注册信息开始执行,=========={}",salesman);
         String str = salesmanService.addSalesman(salesman);
         return str;
     }
@@ -39,10 +39,9 @@ public class SalesmanController {
      */
     @RequestMapping("/salesman/getAll")
     public List<Salesman> getAll(){
-
-        System.out.println("aaa");
-
-        return null;
+        log.info("获取所有业务人员信息开始执行");
+        List<Salesman> all = salesmanService.getAll();
+        return all;
     }
 
     /**
@@ -77,7 +76,7 @@ public class SalesmanController {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ModelAndView test(@PathVariable String id){
-        System.out.println("aaa");
+        log.info("根据推广码进行用户注册，============={}",id);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("userRegister");
         mv.addObject("id",id);

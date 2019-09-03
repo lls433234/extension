@@ -19,4 +19,12 @@
         #{createTime,jdbcType=TIMESTAMP})
     </insert>
 
+    <select id="getAll" resultMap="SalesmanMap">
+        select * from salesman
+    </select>
+
+    <select id="getAllByLimt" parameterType="java.util.Map" resultMap="SalesmanMap">
+        select * from salesman order by create_time desc limit 0,20
+    </select>
+
 </mapper>

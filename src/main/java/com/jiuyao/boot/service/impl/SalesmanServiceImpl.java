@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -27,6 +28,12 @@ public class SalesmanServiceImpl implements SalesmanService {
     @Override
     public int register(Salesman salesman) {
         return salesmanMapper.register(salesman);
+    }
+
+    @Override
+    public List<Salesman> getAll() {
+        List<Salesman> all = salesmanMapper.getAll();
+        return all;
     }
 
     /**
@@ -60,4 +67,6 @@ public class SalesmanServiceImpl implements SalesmanService {
         }
         return JSONObject.toJSON(message).toString();
     }
+
+
 }
