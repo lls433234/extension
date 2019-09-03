@@ -33,7 +33,7 @@ public class User {
     /**
      * 用户密码
      */
-    private String password;
+//    private String password;
 
     /**
      * 创建时间

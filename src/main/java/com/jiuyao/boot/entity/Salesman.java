@@ -19,14 +19,14 @@ public class Salesman {
     private String salesmanName;
 
     /**
+     * 业务人员的姓名
+     */
+    private String name;
+
+    /**
      * 业务员密码
      */
     private String salesmanPassword;
-
-    /**
-     * 业务人员电话
-     */
-    private String salesmanPhone;
 
     /**
      * 业务人员身份证号
@@ -37,6 +37,14 @@ public class Salesman {
      * 业务人员推广码
      */
     private String salesmanExtensionId;
+    /**
+     * 状态（1:审核中，2:审核通过，3:审核被拒）
+     */
+    private String status;
+    /**
+     * 类型（1:管理员，2:经销商）
+     */
+    private String type;
 
     /**
      * 创建时间

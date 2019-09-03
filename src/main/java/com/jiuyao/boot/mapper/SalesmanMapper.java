@@ -3,6 +3,7 @@ package com.jiuyao.boot.mapper;
 import com.jiuyao.boot.entity.Salesman;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -17,4 +18,8 @@ public interface SalesmanMapper {
      * @return
      */
     List<Salesman> getAllByLimt();
+
+    int deleteByExtensionId();
+
+    Salesman getOne(HashMap<String, String> map);
 }

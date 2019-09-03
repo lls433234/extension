@@ -4,19 +4,21 @@
   <resultMap id="SalesmanMap" type="com.jiuyao.boot.entity.Salesman">
       <id column="salesman_id" jdbcType="INTEGER" property="salesmanId" />
       <result column="salesman_name" jdbcType="VARCHAR" property="salesmanName" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
       <result column="salesman_password" jdbcType="VARCHAR" property="salesmanPassword" />
-      <result column="salesman_phone" jdbcType="VARCHAR" property="salesmanPhone" />
       <result column="salesman_id_card" jdbcType="VARCHAR" property="salesmanIdCard" />
       <result column="salesman_extension_id" jdbcType="VARCHAR" property="salesmanExtensionId" />
+      <result column="status" jdbcType="VARCHAR" property="status" />
+      <result column="type" jdbcType="VARCHAR" property="type" />
       <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 
     <insert id="register" parameterType="com.jiuyao.boot.entity.Salesman">
         insert into salesman
-        (salesman_name,salesman_password,salesman_phone,salesman_id_card,salesman_extension_id,create_time)
-        values (#{salesmanName,jdbcType=VARCHAR},#{salesmanPassword,jdbcType=VARCHAR},
-        #{salesmanPhone,jdbcType=VARCHAR},#{salesmanIdCard,jdbcType=VARCHAR},#{salesmanExtensionId,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP})
+        (salesman_name,name,salesman_password,salesman_id_card,salesman_extension_id,status,type,create_time)
+        values (#{salesmanName,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{salesmanPassword,jdbcType=VARCHAR},
+        #{salesmanIdCard,jdbcType=VARCHAR},#{salesmanExtensionId,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
     </insert>
 
     <select id="getAll" resultMap="SalesmanMap">
@@ -27,4 +29,12 @@
         select * from salesman order by create_time desc limit 0,20
     </select>
 
+    <delete id="deleteByExtensionId" parameterType="java.lang.String">
+       DELETE FROM salesman WHERE salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="getOne" parameterType="java.util.Map" resultMap="SalesmanMap">
+        select * from salesman
+         where salesman_name = #{salesmanName,jdbcType=VARCHAR} and salesman_password = #{salesmanPassword,jdbcType=VARCHAR}
+    </select>
 </mapper>

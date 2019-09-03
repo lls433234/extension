@@ -4,6 +4,7 @@ import cn.hutool.core.lang.ObjectId;
 import com.alibaba.fastjson.JSONObject;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.dto.Message;
+import com.jiuyao.boot.entity.dto.MessageEnum;
 import com.jiuyao.boot.mapper.SalesmanMapper;
 import com.jiuyao.boot.service.SalesmanService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -36,13 +38,25 @@ public class SalesmanServiceImpl implements SalesmanService {
         return all;
     }
 
+    @Override
+    public int deleteSalesmanByExtensionId(String salesmanExtensionId) {
+        int i = salesmanMapper.deleteByExtensionId();
+        return i;
+    }
+
+    @Override
+    public Salesman getOne(HashMap<String, String> map) {
+        Salesman one = salesmanMapper.getOne(map);
+        return one;
+    }
+
     /**
      * 业务员注册
-     * @param salesman
-     * @return
+     * @param salesman 业务员实体对象
+     * @return 增加结果
      */
     @Override
-    public String addSalesman(Salesman salesman) {
+    public Message addSalesman(Salesman salesman) {
         Message message = new Message();
         ModelAndView mv = new ModelAndView();
         if (salesman != null) {
@@ -51,21 +65,23 @@ public class SalesmanServiceImpl implements SalesmanService {
             salesman.setSalesmanExtensionId(salesmanId);
             //设置创建时间
             salesman.setCreateTime(new Date());
+            salesman.setStatus("1");
+            salesman.setType("2");
             int register = salesmanService.register(salesman);
             if (register > 0){
                 log.info("注册成功");
-                message.setMsg("注册成功");
-                message.setCode("10000");
+                message.setMsg(MessageEnum.REGISTER_SUCCESS.getMessage());
+                message.setCode(MessageEnum.REGISTER_SUCCESS.getCode());
             }else {
                 log.info("注册失败");
-                message.setMsg("注册失败");
-                message.setCode("10001");
+                message.setMsg(MessageEnum.REGISTER_FAIL.getMessage());
+                message.setCode(MessageEnum.REGISTER_FAIL.getCode());
             }
         }else {
-            message.setMsg("参数传递有误，请重新提交");
-            message.setCode("10008");
+            message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
+            message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
         }
-        return JSONObject.toJSON(message).toString();
+        return message;
     }
 
 

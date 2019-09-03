@@ -1,27 +1,74 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <html>
 <head>
-<title>91用车</title>
-    <!-- for-mobile-apps -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/javascript" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/bootsnav.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/normalize.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet" type="text/css">
+    <script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/bootsnav.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
+    <!--[if IE]>
+    <script src="js/html5.js"></script><![endif]-->
+    <title>客户注册</title>
 </head>
-<body>
-userRegister.jsp
-    <form action="userRegister" method="POST">
-        身份证：<input type="text" name="userIdCard" id="userIdCard"><br>
-        电话：<input type="text" name="userPhone" id="userPhone"><br>
-        姓名：<input type="text" name="userName" id="userName"><br>
-        密码：<input type="text" name="password" id="password"><br>
-        推广码：<input type="text" name="salesmanId" id="salesmanId" value="${id}"><br>
-        <button id="btn" type="submit" value="">提交</button>
-    </form>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 
+<body class="logobg_style">
+<div id="large-header" class="large-header login-page">
+    <canvas id="demo-canvas" width="1590" height="711"></canvas>
+    <div class="login-form">
+        <div class="login-content">
+            <h1 class="title_name">客户注册</h1>
+            <form action="userRegister" method="post" role="form" id="form_login" class="login_padding">
 
+                <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入姓名"
+                               autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="请输入手机号"
+                               autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="salesman_id" id="salesman_id" autocomplete="off" value="${id}"  readonly="readonly">
+                    </div>
+                </div>
+
+                <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="${pageContext.request.contextPath}/js/TweenLite.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/EasePack.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/rAF.js"></script>
+<script src="${pageContext.request.contextPath}/js/demo-1.js"></script>
 </body>
-
-
 </html>

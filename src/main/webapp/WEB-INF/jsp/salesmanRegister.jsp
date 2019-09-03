@@ -1,5 +1,7 @@
 <!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,7 +18,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
     <!--[if IE]>
     <script src="js/html5.js"></script><![endif]-->
-    <title>登录</title>
+    <title>业务员注册</title>
 </head>
 
 <body class="logobg_style">
@@ -24,45 +26,52 @@
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
-            <h1 class="title_name">账户登录</h1>
-            <form action="login" method="post" role="form" id="form_login" class="login_padding">
-                <div class="form-group clearfix">
+            <h1 class="title_name">账户注册</h1>
+            <form action="register" method="post" role="form" id="form_login" class="login_padding">
 
+                <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-
-                        <input type="text" class="form-control" name="salesmanName" id="username" placeholder="请输入手机号"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入姓名"
                                autocomplete="off">
                     </div>
-
                 </div>
 
                 <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="salesmanName" id="username" placeholder="请输入手机号"
+                               autocomplete="off">
+                    </div>
+                </div>
 
+                <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="icon_password"></i>
                         </div>
-
                         <input type="password" class="form-control" name="salesmanPassword" id="password" placeholder="请输入密码"
                                autocomplete="off">
                     </div>
-
-                </div>
-                <div class=" textright"><a href="#" class="forget">忘记密码？</a></div>
-                <div class="tishi"></div>
-                <div class="form-group">
-
-                    <button class="btn btn-danger btn-block btn-login"><i class="fa fa-sign-in">登录</i></button>
-                </div>
-<%--                <div class=" textright"><a href="salesmanRegister" class="forget">立即注册</a></div>--%>
-                <!-- Implemented in v1.1.4 -->
-                <div class="form-group">
-
                 </div>
 
+                <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="salesmanIdCard" id="salesmanIdCard" placeholder="请输入身份证号"
+                               autocomplete="off">
+                    </div>
+                </div>
+
+                <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
+                <h3 style="color:white;">${message.msg}</h3>
+                <a href="index">点击进入登录</a>
 
             </form>
         </div>

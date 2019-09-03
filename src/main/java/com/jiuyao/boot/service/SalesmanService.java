@@ -1,7 +1,9 @@
 package com.jiuyao.boot.service;
 
 import com.jiuyao.boot.entity.Salesman;
+import com.jiuyao.boot.entity.dto.Message;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface SalesmanService {
@@ -13,7 +15,11 @@ public interface SalesmanService {
      * @param salesman
      * @return
      */
-    String addSalesman(Salesman salesman);
+    Message addSalesman(Salesman salesman);
 
     List<Salesman> getAll();
+
+    int deleteSalesmanByExtensionId(String salesmanExtensionId);
+
+    Salesman getOne(HashMap<String, String> map);
 }
