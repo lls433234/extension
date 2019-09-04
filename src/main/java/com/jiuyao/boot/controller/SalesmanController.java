@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -49,9 +48,10 @@ public class SalesmanController {
         }else {
             log.info("登录成功");
             if (one.getType().equals("1")){
-                mv.setViewName("管理员能看到的页面");
+                mv.setViewName("home");
+                mv.addObject("name",one.getName());
             }else {
-                mv.setViewName("业务员能看的页面");
+                mv.setViewName("home2");
             }
         }
        return mv;
@@ -75,10 +75,30 @@ public class SalesmanController {
     /**
      * 回显所有业务员信息
      */
-    @RequestMapping("/salesman/getAll")
-    public List<Salesman> getAll(){
+    @RequestMapping("/getAllSalesman")
+    public ModelAndView getAll(){
+        ModelAndView mv = new ModelAndView();
         log.info("获取所有业务人员信息开始执行");
-        return salesmanService.getAll();
+        List<Salesman> salesmanList = salesmanService.getAll();
+        if (salesmanList.size()>0) {
+            for (Salesman salesman : salesmanList) {
+                if (salesman.getStatus().equals("1")){
+                    salesman.setStatus("审核中");
+                }else if (salesman.getStatus().equals("2")){
+                    salesman.setStatus("审核通过");
+                }else if (salesman.getStatus().equals("3")){
+                    salesman.setStatus("审核拒绝");
+                }
+                if (salesman.getType().equals("2")){
+                    salesman.setType("业务员");
+                }else if (salesman.getType().equals("1")){
+                    salesman.setType("管理员");
+                }
+            }
+        }
+        mv.addObject("salesmanList",salesmanList);
+        mv.setViewName("salesmanList");
+        return mv;
     }
 
     /**
@@ -124,7 +144,7 @@ public class SalesmanController {
      * @param id 业务员推广码
      * @return 视图
      */
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/context/{id}",method = RequestMethod.GET)
     public ModelAndView test(@PathVariable String id){
         log.info("根据推广码进行用户注册，============={}",id);
         ModelAndView mv = new ModelAndView();

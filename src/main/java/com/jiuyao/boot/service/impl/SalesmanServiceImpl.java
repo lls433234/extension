@@ -65,7 +65,7 @@ public class SalesmanServiceImpl implements SalesmanService {
             salesman.setSalesmanExtensionId(salesmanId);
             //设置创建时间
             salesman.setCreateTime(new Date());
-            salesman.setStatus("1");
+            salesman.setStatus("2");
             salesman.setType("2");
             int register = salesmanService.register(salesman);
             if (register > 0){

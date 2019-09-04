@@ -26,7 +26,7 @@
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
-            <h1 class="title_name">账户注册</h1>
+            <h1 class="title_name">业务员添加</h1>
             <form action="register" method="post" role="form" id="form_login" class="login_padding">
 
                 <div class="form-group clearfix">
@@ -71,7 +71,7 @@
 
                 <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
                 <h3 style="color:white;">${message.msg}</h3>
-                <a href="index">点击进入登录</a>
+<%--                <a href="index">点击进入登录</a>--%>
 
             </form>
         </div>

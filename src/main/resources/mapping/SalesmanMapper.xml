@@ -22,7 +22,7 @@
     </insert>
 
     <select id="getAll" resultMap="SalesmanMap">
-        select * from salesman
+        select * from salesman where type = '2'
     </select>
 
     <select id="getAllByLimt" parameterType="java.util.Map" resultMap="SalesmanMap">
