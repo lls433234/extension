@@ -15,20 +15,20 @@ if(screen.width < 780 && $(window).width() < 780)
 var phone =/[1][3-9][0-9]{9,9}/;
 var validCode=true;
 function cliLogin() {
-	var txtUser = $.trim($("#username").val());
+	var txtPhone = $.trim($("#phone").val());
 	var txtPwd = $("#password").val();
 	
-	if ($.trim(txtUser) == "") {
+	if ($.trim(txtPhone) == "") {
 	
 		Tip('请输入你的手机号');
-		$("#txtUser").focus();
+		$("#phone").focus();
 		return;
 		
 	}
-	if(!phone.exec(txtUser)){
+	if(!phone.exec(txtPhone)){
 			
 			Tip('手机输入格式不正确,请从新输入');
-			$("#txtUser").focus();
+			$("#phone").focus();
 		return;
 		}
 	

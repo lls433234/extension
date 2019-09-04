@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 用户表
+ * 经销商绑定的用户表
  */
 @Data
 public class User {

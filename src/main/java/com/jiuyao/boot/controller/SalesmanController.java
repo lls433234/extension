@@ -1,10 +1,12 @@
 package com.jiuyao.boot.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.User;
 import com.jiuyao.boot.entity.dto.Message;
 import com.jiuyao.boot.entity.dto.MessageEnum;
+import com.jiuyao.boot.service.PublicUserService;
 import com.jiuyao.boot.service.SalesmanService;
 import com.jiuyao.boot.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -24,6 +28,8 @@ public class SalesmanController {
     private SalesmanService salesmanService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PublicUserService publicUserService;
 
     /**
      * 登录
@@ -144,5 +150,62 @@ public class SalesmanController {
     @RequestMapping(value = "/salesmanRegister",method = RequestMethod.GET)
     public String salesmanRegister(){
         return "salesmanRegister";
+    }
+
+    @RequestMapping(value = "/userInfo",method = RequestMethod.GET)
+    public String publicUser(PublicUser publicUser){
+        return "publicUserRegister";
+    }
+
+    /**
+     * 公共用户注册
+     * @return
+     */
+    @RequestMapping(value = "/publicUserRegister",method = RequestMethod.POST)
+    public ModelAndView publicUserRegister(PublicUser publicUser){
+        System.out.println(publicUser);
+        ModelAndView mv = new ModelAndView();
+        Message message = new Message();
+        boolean emp = isEmp(publicUser);
+        if (emp){
+            HashMap<String, String> map = new HashMap<>();
+            map.put("name",publicUser.getName());
+            map.put("phone",publicUser.getPhone());
+            List<PublicUser> oneByNameAndPhone = publicUserService.getOneByNameAndPhone(map);
+            if (oneByNameAndPhone.size() == 0){//没有注册过
+                publicUser.setCreateTime(new Date());
+                int save = publicUserService.save(publicUser);
+                if (save > 0) {//注册成功
+                    message.setCode(MessageEnum.REGISTER_SUCCESS.getCode());
+                    message.setMsg(MessageEnum.REGISTER_SUCCESS.getMessage());
+                    mv.setViewName("salesmanRegister");
+                }else {//注册失败
+                    message.setCode(MessageEnum.REGISTER_FAIL.getCode());
+                    message.setMsg(MessageEnum.REGISTER_FAIL.getMessage());
+                    mv.setViewName("publicUserRegister");
+                }
+            }else {//用户名或者电话已被使用
+                message.setCode(MessageEnum.REPEATED_REGISTRATION.getCode());
+                message.setMsg(MessageEnum.REPEATED_REGISTRATION.getMessage());
+                mv.setViewName("publicUserRegister");
+            }
+        }else {//注册参数有误
+            message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
+            message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
+            mv.setViewName("publicUserRegister");
+        }
+
+        mv.addObject("msg",message);
+        return mv;
+    }
+
+
+    public boolean isEmp(PublicUser publicUser){
+        if (publicUser.getName() != null && !publicUser.getName().equals("") && publicUser.getPhone() != null &&
+                !publicUser.getPhone().equals("") && publicUser.getPassword() != null && !publicUser.getPassword().equals("")){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

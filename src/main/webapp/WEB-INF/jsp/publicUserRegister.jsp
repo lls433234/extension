@@ -26,15 +26,15 @@
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
-            <h1 class="title_name">用户注册</h1>
-            <form action="userRegister" method="post" role="form" id="form_login" class="login_padding">
+            <h1 class="title_name">91用车用户注册</h1>
+            <form action="publicUserRegister" method="post" role="form" id="form_login" class="login_padding">
 
                 <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入姓名"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入用户名"
                                autocomplete="off">
                     </div>
                 </div>
@@ -44,9 +44,11 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="请输入手机号"
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="请输入手机号"
                                autocomplete="off">
                     </div>
+
+                    <p class="text" style ="display:none;color: red;">请输入正确格式的电话号码</p>
                 </div>
 
                 <div class="form-group clearfix">
@@ -54,12 +56,13 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="salesman_id" id="salesman_id" autocomplete="off" value="${id}"  readonly="readonly">
+                        <input type="text" class="form-control" name="password" id="password" placeholder="请输入密码"
+                               autocomplete="off">
                     </div>
                 </div>
 
-                <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
-
+                <button id="aaa" class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
+                <h5 style="color: red">${msg.msg}</h5>
             </form>
         </div>
 
@@ -70,5 +73,22 @@
 <script src="${pageContext.request.contextPath}/js/EasePack.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/rAF.js"></script>
 <script src="${pageContext.request.contextPath}/js/demo-1.js"></script>
+
+<script>
+
+    $(function () {
+        //登录操作
+        let phone =/[1][3-9][0-9]{9,9}/;
+        $("#aaa").click(function () {
+           let inputDom = document.getElementById("phone");
+           let aa = inputDom.value
+           if(!phone.exec(aa)){
+               $('.text').css('display', 'block');
+               return  false;
+           }
+       })
+    });
+
+</script>
 </body>
 </html>
