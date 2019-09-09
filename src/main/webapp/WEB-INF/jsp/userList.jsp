@@ -6,7 +6,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>业务员信息</title>
+		<title>绑定用户信息</title>
 
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin2.css">
@@ -52,19 +52,17 @@
 						<div class="am-g">
 							<div class="am-u-sm-12 am-u-md-2">
 								<div class="am-input-group am-input-group-sm">
-									<span id="s1">姓名</span>&nbsp;&nbsp;<input class="input" type="text" name=""  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								</div>
-							</div>
-
-
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s2">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="s1">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name=""  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</div>
 							</div>
 							<div class="am-u-sm-12 am-u-md-2">
 								<div class="am-input-group am-input-group-sm">
-									<span id="s3">手机号</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span id="s2">电话号</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								</div>
+							</div>
+							<div class="am-u-sm-12 am-u-md-3">
+								<div class="am-input-group am-input-group-sm">
+									<span id="s3">用户姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</div>
 							</div>
 
@@ -75,33 +73,27 @@
 								</div>
 							</div>
 						</div>
-						<hr>
+						<hr style="height: 2px">
 						<div class="am-g" style="margin-top: -30px;">
 							<div class="am-u-sm-12">
-								<form class="am-form" action="">
+								<form class="am-form" action="" style="font-family: '微软雅黑', Microsoft YaHei UI">
 									<table class="am-table am-table-striped am-table-hover table-main">
 										<thead>
 											<tr>
 												<th class="table-title">
-													编号
+													用户编号
 												</th>
 												<th>
-													业务员电话号码
+													用户电话号码
 												</th>
 												<th>
-													业务员姓名
-												</th>
-												<th>
-													业务员身份证
+													用户姓名
 												</th>
 												<th>
 													业务员推广码
 												</th>
 												<th>
-													状态
-												</th>
-												<th>
-													类型
+													业务员姓名
 												</th>
 												<th>
 													创建时间
@@ -110,17 +102,15 @@
 
 										</thead>
 										<tbody id="tUser">
-										<c:forEach items="${salesmanList}" var="salesman">
+										<c:forEach items="${allUserList}" var="user">
 											<tr>
-												<td>${salesman.salesmanId}</td>
-												<td>${salesman.salesmanName}</td>
-												<td>${salesman.name}</td>
-												<td>${salesman.salesmanIdCard}</td>
-												<td>${salesman.salesmanExtensionId}</td>
-												<td>${salesman.status}</td>
-												<td>${salesman.type}</td>
+												<td>${user.userId}</td>
+												<td>${user.userPhone}</td>
+												<td>${user.userName}</td>
+												<td>${user.salesmanId}</td>
+												<td>${user.salesmanName}</td>
 												<td>
-													<fmt:formatDate pattern="yyyy-MM-dd" value="${salesman.createTime}" type="both"/>
+													<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.createTime}" type="both"/>
 												</td>
 											</tr>
 										</c:forEach>

@@ -83,9 +83,6 @@
 										<thead>
 											<tr>
 												<th class="table-title">
-													编号
-												</th>
-												<th>
 													业务员电话号码
 												</th>
 												<th>
@@ -110,9 +107,7 @@
 
 										</thead>
 										<tbody id="tUser">
-										<c:forEach items="${salesmanList}" var="salesman">
 											<tr>
-												<td>${salesman.salesmanId}</td>
 												<td>${salesman.salesmanName}</td>
 												<td>${salesman.name}</td>
 												<td>${salesman.salesmanIdCard}</td>
@@ -123,7 +118,6 @@
 													<fmt:formatDate pattern="yyyy-MM-dd" value="${salesman.createTime}" type="both"/>
 												</td>
 											</tr>
-										</c:forEach>
 										</tbody>
 									</table>
 								</form>

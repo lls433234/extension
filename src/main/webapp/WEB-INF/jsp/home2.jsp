@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>8D酒店后台管理中心</title>
+    <title>经销商客户管理</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pintuer.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
@@ -22,19 +22,19 @@
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
-        <h1><img src="${pageContext.request.contextPath}/images/91logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />8D酒店后台管理中心</h1>
+        <h1><img src="${pageContext.request.contextPath}/images/91logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />经销商客户管理</h1  >
     </div>
-    <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 首页</a>  &nbsp;&nbsp;<a class="button button-little bg-red" href=""><span class="icon-power-off"></span> 退出登录</a> </div>
+    <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 首页</a>  &nbsp;&nbsp;<a class="button button-little bg-red" href="index"><span class="icon-power-off"></span> 退出登录</a> </div>
     <span style="text-align:center;height: 30px;float: right;margin-top: 20px;font-size: 18px;color: #3c763d;margin-right: 30px">
-        <img src="${pageContext.request.contextPath}/images/" style="width: 20px">&nbsp;张三
+        <img src="${pageContext.request.contextPath}/images/touxiang2.jpg" style="width: 45px">&nbsp;<span style="color: white;font-size: 20px">您好：${salesmanName}</span>
     </span>
 </div>
 <div class="leftnav">
     <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
     <h2><span class="icon-pencil-square-o"></span>基本操作</h2>
     <ul id="ul2" style="display: block">
-        <li><a href="" target="right"><span class="icon-caret-right"></span>个人信息</a></li>
-        <li><a href="" target="right"><span class="icon-caret-right"></span>客户管理</a></li>
+        <li><a href="querySalesman?salesmanExtensionId=${salesmanExtensionId}" target="right"><span class="icon-caret-right"></span>个人信息</a></li>
+        <li><a href="queryUser?salesmanExtensionId=${salesmanExtensionId}" target="right"><span class="icon-caret-right"></span>客户信息</a></li>
     </ul>
 </div>
 <script type="text/javascript">

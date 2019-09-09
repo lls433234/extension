@@ -37,4 +37,10 @@
         select * from salesman
          where salesman_name = #{salesmanName,jdbcType=VARCHAR} and salesman_password = #{salesmanPassword,jdbcType=VARCHAR}
     </select>
+
+    <select id="getOneBySalesmanExtensionId" parameterType="java.lang.String" resultMap="SalesmanMap">
+        select * from salesman where salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR}
+    </select>
+
+
 </mapper>

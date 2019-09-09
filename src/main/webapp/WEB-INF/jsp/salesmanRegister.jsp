@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>
+                <button class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">添加</i></button>
                 <h3 style="color:white;">${message.msg}</h3>
 <%--                <a href="index">点击进入登录</a>--%>
 

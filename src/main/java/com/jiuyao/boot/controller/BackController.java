@@ -1,13 +1,116 @@
 package com.jiuyao.boot.controller;
 
+import com.jiuyao.boot.entity.Salesman;
+import com.jiuyao.boot.entity.User;
+import com.jiuyao.boot.entity.dto.Message;
+import com.jiuyao.boot.entity.dto.MessageEnum;
+import com.jiuyao.boot.service.SalesmanService;
+import com.jiuyao.boot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class BackController {
 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private SalesmanService salesmanService;
+
+    /**
+     * 添加业务员
+     * @return
+     */
     @RequestMapping("/addSalesman")
     public String  addSalesman(){
         return "salesmanRegister";
     }
+
+
+    /**
+     * 获取所有业务员绑定的用户
+     * @return
+     */
+    @RequestMapping("/getUserBySalesman")
+    public ModelAndView getUserBySalesman(){
+        Message message = new Message();
+        ModelAndView mv = new ModelAndView();
+        List<User> allUserList = userService.getAll();
+            for (User user : allUserList) {
+                if (user != null){
+                    String salesmanExtensionId = user.getSalesmanId();
+                    Salesman oneBySalesmanExtensionId = salesmanService.getOneBySalesmanExtensionId(salesmanExtensionId);
+                    if (oneBySalesmanExtensionId != null){
+                        user.setSalesmanName(oneBySalesmanExtensionId.getName());
+                    }else {
+                        user.setSalesmanName("未知");
+                    }
+                }
+            }
+
+        mv.setViewName("userList");
+        mv.addObject("allUserList",allUserList);
+        return mv;
+    }
+
+
+    /**
+     * 业务员看个人信息
+     * @return
+     */
+    @RequestMapping("/querySalesman")
+    public ModelAndView querySalesman(@RequestParam("salesmanExtensionId") String salesmanExtensionId){
+        System.out.println(salesmanExtensionId);
+        Salesman oneBySalesmanExtensionId = salesmanService.getOneBySalesmanExtensionId(salesmanExtensionId);
+        if (oneBySalesmanExtensionId != null){
+            String status = oneBySalesmanExtensionId.getStatus();
+            String type = oneBySalesmanExtensionId.getType();
+            if (status.equals("1")){
+                oneBySalesmanExtensionId.setStatus("审核中");
+            }else if (status.equals("2")){
+                oneBySalesmanExtensionId.setStatus("审核通过");
+            }else if (status.equals("3")){
+                oneBySalesmanExtensionId.setStatus("审核拒绝");
+            }
+            if (type.equals("1")){
+                oneBySalesmanExtensionId.setType("管理员");
+            }else if (type.equals("2")){
+                oneBySalesmanExtensionId.setType("业务员");
+            }
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("querySalesman");
+        mv.addObject("salesman",oneBySalesmanExtensionId);
+        return mv;
+    }
+
+
+    /**
+     * 业务员查看个人绑定的用户
+     * @param salesmanExtensionId 推广码
+     * @return
+     */
+    @RequestMapping("/queryUser")
+    public ModelAndView queryUser(@RequestParam("salesmanExtensionId") String salesmanExtensionId){
+        ModelAndView mv = new ModelAndView();
+        List<User> usersBySalesman = userService.getAllBySalesmanExtensionId(salesmanExtensionId);
+        for (User user : usersBySalesman) {
+            String salesmanId = user.getSalesmanId();
+            Salesman salesman = salesmanService.getOneBySalesmanExtensionId(salesmanId);
+            if (salesman != null){
+                user.setSalesmanName(salesman.getName());
+            }else {
+                user.setSalesmanName("未知");
+            }
+        }
+        mv.setViewName("salesmanUser");
+        mv.addObject("usersBySalesman",usersBySalesman);
+        return mv;
+    }
+
 }

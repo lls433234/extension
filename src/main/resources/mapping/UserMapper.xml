@@ -21,4 +21,11 @@
              #{createTime,jdbcType=TIMESTAMP})
     </insert>
 
+    <select id="getAll" resultMap="UserMap">
+        select * from user
+    </select>
+
+    <select id="getAllBySalesmanExtensionId" parameterType="java.lang.String" resultMap="UserMap">
+        select * from user where salesman_id = #{salesmanExtensionId,jdbcType=VARCHAR}
+    </select>
 </mapper>

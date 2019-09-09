@@ -24,7 +24,7 @@
     <div class="logo margin-big-left fadein-top">
         <h1><img src="${pageContext.request.contextPath}/images/91logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />重庆九幺用车经销商客户管理系统</h1>
     </div>
-    <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 首页</a>  &nbsp;&nbsp;<a class="button button-little bg-red" href=""><span class="icon-power-off"></span> 退出登录</a> </div>
+    <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 首页</a>  &nbsp;&nbsp;<a class="button button-little bg-red" href="index"><span class="icon-power-off"></span> 退出登录</a> </div>
     <span style="text-align:center;height: 30px;float: right;margin-top: 20px;font-size: 18px;color: #3c763d;margin-right: 30px">
         <img src="${pageContext.request.contextPath}/images/touxiang2.jpg" style="width: 45px">&nbsp;&nbsp;<span style="color: white;font-size: 20px">您好：${name}</span>
     </span>
@@ -36,7 +36,7 @@
         <li><a href="addSalesman" target="right"><span class="icon-caret-right"></span>添加业务员</a></li>
         <li><a href="getAllSalesman" target="right"><span class="icon-caret-right"></span>业务员管理</a></li>
         <li><a href="" target="right"><span class="icon-caret-right"></span>业务员审核</a></li>
-        <li><a href="" target="right"><span class="icon-caret-right"></span>业务员客户</a></li>
+        <li><a href="getUserBySalesman" target="right"><span class="icon-caret-right"></span>业务员客户</a></li>
     </ul>
 
 </div>

@@ -22,4 +22,8 @@ public interface SalesmanService {
     int deleteSalesmanByExtensionId(String salesmanExtensionId);
 
     Salesman getOne(HashMap<String, String> map);
+
+    Salesman getOneBySalesmanExtensionId(String salesmanExtensionId);
+
+
 }

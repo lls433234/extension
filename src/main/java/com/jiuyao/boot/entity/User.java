@@ -1,6 +1,7 @@
 package com.jiuyao.boot.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -19,6 +20,12 @@ public class User {
      * 业务人员推广码
      */
     private String salesmanId;
+
+    /**
+     * 业务员名字
+     */
+    @Transient
+    private String salesmanName;
 
     /**
      * 用户电话

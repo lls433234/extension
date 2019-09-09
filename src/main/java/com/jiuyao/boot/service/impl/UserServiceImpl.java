@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -33,5 +34,26 @@ public class UserServiceImpl implements UserService {
             message.setCode("10001");
         }
         return message;
+    }
+
+    /**
+     * 获取所有业务员绑定用户
+     * @return
+     */
+    @Override
+    public List<User> getAll() {
+        List<User> all = userMapper.getAll();
+        return all;
+    }
+
+    /**
+     * 根据业务员推广码查询所有用户
+     * @param salesmanExtensionId
+     * @return
+     */
+    @Override
+    public List<User> getAllBySalesmanExtensionId(String salesmanExtensionId) {
+        List<User> allBySalesmanExtensionId = userMapper.getAllBySalesmanExtensionId(salesmanExtensionId);
+        return allBySalesmanExtensionId;
     }
 }

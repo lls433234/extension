@@ -52,6 +52,8 @@ public class SalesmanController {
                 mv.addObject("name",one.getName());
             }else {
                 mv.setViewName("home2");
+                mv.addObject("salesmanName",one.getName());
+                mv.addObject("salesmanExtensionId",one.getSalesmanExtensionId());
             }
         }
        return mv;
@@ -130,7 +132,20 @@ public class SalesmanController {
         Message message = new Message();
         //用户注册
         if (user != null ) {
-           message = userService.userRegister(user, message);
+            boolean emp = isEmp(user);
+            if (emp) {//参数全有
+                //判断推广码是否还有效
+                Salesman salesman = salesmanService.getOneBySalesmanExtensionId(user.getSalesmanId());
+                if (salesman != null) {
+                    message = userService.userRegister(user, message);
+                }else {
+                    message.setCode(MessageEnum.SALESMAN_NOT_EXIST.getCode());
+                    message.setMsg(MessageEnum.SALESMAN_NOT_EXIST.getMessage());
+                }
+            }else {//参数有为空
+                message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
+                message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
+            }
         }else {
             message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
             message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
@@ -155,7 +170,7 @@ public class SalesmanController {
 
     /**
      * 注册页面跳转登录页面
-     * @return
+     * @return 页面
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(){
@@ -165,13 +180,18 @@ public class SalesmanController {
 
     /**
      * 登录页面跳转注册页面
-     * @return
+     * @return 页面
      */
     @RequestMapping(value = "/salesmanRegister",method = RequestMethod.GET)
     public String salesmanRegister(){
         return "salesmanRegister";
     }
 
+    /**
+     * 公共用户注册
+     * @param publicUser 公共用户信息
+     * @return 页面
+     */
     @RequestMapping(value = "/userInfo",method = RequestMethod.GET)
     public String publicUser(PublicUser publicUser){
         return "publicUserRegister";
@@ -179,7 +199,7 @@ public class SalesmanController {
 
     /**
      * 公共用户注册
-     * @return
+     * @return 视图
      */
     @RequestMapping(value = "/publicUserRegister",method = RequestMethod.POST)
     public ModelAndView publicUserRegister(PublicUser publicUser){
@@ -198,7 +218,7 @@ public class SalesmanController {
                 if (save > 0) {//注册成功
                     message.setCode(MessageEnum.REGISTER_SUCCESS.getCode());
                     message.setMsg(MessageEnum.REGISTER_SUCCESS.getMessage());
-                    mv.setViewName("salesmanRegister");
+                    mv.setViewName("aa");
                 }else {//注册失败
                     message.setCode(MessageEnum.REGISTER_FAIL.getCode());
                     message.setMsg(MessageEnum.REGISTER_FAIL.getMessage());
@@ -220,9 +240,20 @@ public class SalesmanController {
     }
 
 
-    public boolean isEmp(PublicUser publicUser){
+    boolean isEmp(PublicUser publicUser){
         if (publicUser.getName() != null && !publicUser.getName().equals("") && publicUser.getPhone() != null &&
                 !publicUser.getPhone().equals("") && publicUser.getPassword() != null && !publicUser.getPassword().equals("")){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+    boolean isEmp(User user){
+        if (user.getUserPhone() != null && !user.getUserPhone().equals("") && user.getUserName() != null &&
+                !user.getUserName().equals("") && user.getSalesmanId() != null && !user.getSalesmanId().equals("")){
             return true;
         }else {
             return false;

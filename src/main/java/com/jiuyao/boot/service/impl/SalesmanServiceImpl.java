@@ -1,7 +1,6 @@
 package com.jiuyao.boot.service.impl;
 
 import cn.hutool.core.lang.ObjectId;
-import com.alibaba.fastjson.JSONObject;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.dto.Message;
 import com.jiuyao.boot.entity.dto.MessageEnum;
@@ -49,6 +48,13 @@ public class SalesmanServiceImpl implements SalesmanService {
         Salesman one = salesmanMapper.getOne(map);
         return one;
     }
+
+    @Override
+    public Salesman getOneBySalesmanExtensionId(String salesmanExtensionId) {
+        Salesman oneBySalesmanExtensionId = salesmanMapper.getOneBySalesmanExtensionId(salesmanExtensionId);
+        return oneBySalesmanExtensionId;
+    }
+
 
     /**
      * 业务员注册

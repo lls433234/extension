@@ -12,6 +12,7 @@ public enum MessageEnum {
     DELETE_SUCCESS("10010", "删除成功"),
     DELETE_FAIL("10020", "删除失败"),
     REPEATED_REGISTRATION("10030","用户名或者电话已被使用"),
+    SALESMAN_NOT_EXIST("10040","业务员不存在"),
     ;
 
     private String code;

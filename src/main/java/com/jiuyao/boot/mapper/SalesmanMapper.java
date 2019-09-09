@@ -22,4 +22,8 @@ public interface SalesmanMapper {
     int deleteByExtensionId();
 
     Salesman getOne(HashMap<String, String> map);
+
+    Salesman getOneBySalesmanExtensionId(String salesmanExtensionId);
+
+
 }
