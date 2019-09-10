@@ -48,24 +48,46 @@ ol, ul {
     transition: all 550ms ease-in-out;
 }
 .logobg_style .login-content {
-    position: relative;
-    width: 450px;
-	z-index: 999;
-	height: 470px;
-	box-shadow: 0px 3px 6px #333333;
-	background: url(../images/bg_03.png) repeat;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 10px 0;
-    -webkit-transition: all 550ms ease-in-out;
-    -moz-transition: all 550ms ease-in-out;
-    -o-transition: all 550ms ease-in-out;
-    transition: all 550ms ease-in-out;
-}
+	 position: relative;
+	 width: 450px;
+	 z-index: 998;
+	 height: 470px;
+	 box-shadow: 0px 3px 6px #333333;
+	 background: url(../images/bg_03.png) repeat;
+	 border-radius: 5px;
+	 -webkit-border-radius: 5px;
+	 -moz-border-radius: 5px;
+	 -o-border-radius: 5px;
+	 margin: 0 auto;
+	 text-align: center;
+	 padding: 10px 0;
+	 -webkit-transition: all 550ms ease-in-out;
+	 -moz-transition: all 550ms ease-in-out;
+	 -o-transition: all 550ms ease-in-out;
+	 transition: all 550ms ease-in-out;
+ }
+
+/*.logobg_style .success {*/
+/*	position: relative;*/
+/*	width: 450px;*/
+/*	z-index: 998;*/
+/*	height: 470px;*/
+/*	!*box-shadow: 0px 3px 6px #333333;*!*/
+/*	background: url(../images/bg_03.png) repeat;*/
+/*	border-radius: 5px;*/
+/*	-webkit-border-radius: 5px;*/
+/*	-moz-border-radius: 5px;*/
+/*	-o-border-radius: 5px;*/
+/*	margin: 0 auto;*/
+/*	text-align: center;*/
+/*	padding: 10px 0;*/
+/*	-webkit-transition: all 550ms ease-in-out;*/
+/*	-moz-transition: all 550ms ease-in-out;*/
+/*	-o-transition: all 550ms ease-in-out;*/
+/*	transition: all 550ms ease-in-out;*/
+/*}*/
+
+
 .logobg_style .input-group-addon{ padding:6px 20px }
 .logobg_style .login-content .title_name{ color: #ffffff; font-weight: bold}
 .login_padding{padding: 15px 40px; position: relative}

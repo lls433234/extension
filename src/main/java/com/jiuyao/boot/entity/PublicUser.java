@@ -18,5 +18,15 @@ public class PublicUser {
 
     private String password;
 
+    /**
+     * 推广码
+     */
+    private String salesmanExtensionId;
+
+    /**
+     * 审核状态（1:未通过；2:通过；3:未审核）
+     */
+    private String status;
+
     private Date createTime;
 }

@@ -1,5 +1,6 @@
 package com.jiuyao.boot.controller;
 
+import cn.hutool.core.lang.ObjectId;
 import com.alibaba.fastjson.JSONObject;
 import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
@@ -9,6 +10,7 @@ import com.jiuyao.boot.entity.dto.MessageEnum;
 import com.jiuyao.boot.service.PublicUserService;
 import com.jiuyao.boot.service.SalesmanService;
 import com.jiuyao.boot.service.UserService;
+import com.jiuyao.boot.utils.QrCodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -202,9 +204,10 @@ public class SalesmanController {
      * 用户根据推广码进行注册
      */
     @RequestMapping(value = "/userRegister",method = RequestMethod.POST)
-    @ResponseBody
-    public String userRegister(User user){
+//    @ResponseBody
+    public ModelAndView userRegister(User user){
         log.info("客户申请数据，{}",user);
+        ModelAndView mv = new ModelAndView();
         Message message = new Message();
         //用户注册
         if (user != null ) {
@@ -237,7 +240,11 @@ public class SalesmanController {
             message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
             message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
         }
-        return JSONObject.toJSON(message).toString();
+
+        mv.setViewName("userRegisterSuccess");
+        mv.addObject("msg",message);
+        return mv;
+//        return JSONObject.toJSON(message).toString();
     }
 
 
@@ -301,6 +308,9 @@ public class SalesmanController {
             List<PublicUser> oneByNameAndPhone = publicUserService.getOneByNameAndPhone(map);
             if (oneByNameAndPhone.size() == 0){//没有注册过
                 publicUser.setCreateTime(new Date());
+                String next = ObjectId.next();//生成推广码
+                publicUser.setSalesmanExtensionId(next);
+                publicUser.setStatus("3");
                 int save = publicUserService.save(publicUser);
                 if (save > 0) {//注册成功
                     message.setCode(MessageEnum.REGISTER_SUCCESS.getCode());
@@ -324,6 +334,59 @@ public class SalesmanController {
 
         mv.addObject("msg",message);
         return mv;
+    }
+
+    /**
+     * 业务员审核页面跳转
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/getPublicUser")
+    public ModelAndView publicUserRegister(){
+        List<PublicUser> all = publicUserService.getAll();
+        if (all.size()>0){
+            for (PublicUser publicUser : all) {
+                if (publicUser.getStatus() .equals("1")){
+                    publicUser.setStatus("未通过");
+                }else if (publicUser.getStatus() .equals("2")){
+                    publicUser.setStatus("通过");
+                }else if (publicUser.getStatus() .equals("3")){
+                    publicUser.setStatus("未审核");
+                }
+            }
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("publicUserList");
+        mv.addObject("allPublicUser",all);
+        return mv;
+    }
+
+    /**
+     * 审核用户申请
+     * @return
+     */
+    @RequestMapping(value = "/examine")
+    public ModelAndView examine(String phone,String status,String name){
+        System.out.println(phone);
+        System.out.println(status);
+        System.out.println(name);
+        ModelAndView mv = new ModelAndView();
+        //更新用户审核状态
+        HashMap<String, String> map = new HashMap<>();
+        map.put("phone",phone);
+        map.put("status",status);
+        int update = publicUserService.update(map);
+        log.info("更新审核状态结果，{}",update);
+        //生成链接
+        String url = "http://www.baidu.com";
+        //配置生成路径
+        String path = "D:\\二维码测试\\photo";
+        //生成文件名称
+        String fileName = name+".png";
+        if (status.equals("2")){
+            QrCodeUtil.createQrCode(url, path, fileName);
+        }
+        return new ModelAndView("redirect:/getPublicUser");
     }
 
 

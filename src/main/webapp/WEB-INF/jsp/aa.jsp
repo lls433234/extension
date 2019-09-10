@@ -27,43 +27,20 @@
     <div class="login-form">
         <div class="login-content">
 <%--            <h1 class="title_name">91用车用户注册</h1>--%>
-            <img class="title_name" src="${pageContext.request.contextPath}/images/91logo.jpg" style="width: 60%;margin:0 auto; ">
-            <form action="publicUserRegister" method="post" role="form" id="form_login" class="login_padding">
-
-                <div class="form-group clearfix">
-                    <div class="input-group">
-
-                       <p style="font-size: 30px;font-family: 黑体;color: #08bbe1;font-weight: bold;margin:0 auto; ">恭喜您：${msg.msg}</p>
-
-                        <input style="font-size: 15px;margin:0 auto;" type="button" value="立即登录" onClick="window.location.href='http://www.baidu.com'">
-                    </div>
+            <img class="title_name" src="${pageContext.request.contextPath}/images/91.png" style="width: 100%;margin:0 auto; ">
+<%--            <form action="publicUserRegister" method="post" role="form" id="form_login" class="login_padding">--%>
+            <div class="form-group clearfix">
+                <div class="input-group">
+                    <p style="font-size: 30px;font-family: 黑体;color: #08bbe1;font-weight: bold;margin-left: 30%;width: 300px">恭喜您：${msg.msg}</p>
+                    <button style="font-size: 15px;margin:auto;border-radius: 3px;" type="button" value=""  onClick="window.location.href='http://www.baidu.com'">
+                        立即登录
+                    </button>
                 </div>
-
-<%--                <div class="form-group clearfix">--%>
-<%--                    <div class="input-group">--%>
-<%--                        <div class="input-group-addon">--%>
-<%--                            <i class="icon_user"></i>--%>
-<%--                        </div>--%>
-<%--                        <input type="text" class="form-control" name="phone" id="phone" placeholder="请输入手机号"--%>
-<%--                               autocomplete="off">--%>
-<%--                    </div>--%>
-
-<%--                    <p class="text" style ="display:none;color: red;">请输入正确格式的电话号码</p>--%>
-<%--                </div>--%>
-
-<%--                <div class="form-group clearfix">--%>
-<%--                    <div class="input-group">--%>
-<%--                        <div class="input-group-addon">--%>
-<%--                            <i class="icon_user"></i>--%>
-<%--                        </div>--%>
-<%--                        <input type="text" class="form-control" name="password" id="password" placeholder="请输入密码"--%>
-<%--                               autocomplete="off">--%>
-<%--                    </div>--%>
-<%--                </div>--%>
+            </div>
 
 <%--                <button id="aaa" class="btn btn-danger btn-block btn-login" onClick="cliLogin()"><i class="fa fa-sign-in">注册</i></button>--%>
 <%--                <h5 style="color: red">${msg.msg}</h5>--%>
-            </form>
+<%--            </form>--%>
         </div>
 
     </div>

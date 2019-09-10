@@ -25,41 +25,9 @@
 <div id="large-header" class="large-header login-page">
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
+        <img src="images/success.jpg" height="150px" alt="">
         <div class="login-content">
-            <h1 class="title_name">用户注册</h1>
-            <form action="/userRegister" method="post" id="form_login" class="login_padding">
-                <div class="form-group clearfix">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="icon_user"></i>
-                        </div>
-                        <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入姓名"
-                               autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="form-group clearfix">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="icon_user"></i>
-                        </div>
-                        <input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="请输入手机号"
-                               autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="form-group clearfix">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="icon_user"></i>
-                        </div>
-                        <input type="text" class="form-control" name="salesmanId" id="salesmanId" autocomplete="off" value="${id}"  readonly="readonly">
-                    </div>
-                </div>
-
-                <button class="btn btn-danger btn-block btn-login" ><i class="fa fa-sign-in">注册</i></button>
-                <h3 style="color:white;">${msg.msg}</h3>
-            </form>
+            <h3 style="color:white;">恭喜您：${msg.msg}</h3>
         </div>
 
     </div>

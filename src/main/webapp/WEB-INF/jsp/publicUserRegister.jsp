@@ -26,7 +26,8 @@
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
-            <h1 class="title_name">91用车用户注册</h1>
+<%--            <h1 class="title_name">91用车用户注册</h1>--%>
+            <img class="title_name" src="${pageContext.request.contextPath}/images/91.png" style="margin:0 auto;height: 150px ">
             <form action="publicUserRegister" method="post" role="form" id="form_login" class="login_padding">
 
                 <div class="form-group clearfix">
@@ -34,7 +35,7 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入用户名"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入姓名"
                                autocomplete="off">
                     </div>
                 </div>

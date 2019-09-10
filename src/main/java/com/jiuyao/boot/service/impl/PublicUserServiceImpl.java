@@ -8,6 +8,7 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +34,21 @@ public class PublicUserServiceImpl implements PublicUserService {
     public int save(PublicUser publicUser) {
         int save = publicUserMapper.save(publicUser);
         return save;
+    }
+
+    /**
+     * 获取所有用户
+     * @return
+     */
+    @Override
+    public List<PublicUser> getAll() {
+        List<PublicUser> all = publicUserMapper.getAll();
+        return all;
+    }
+
+    @Override
+    public int update(HashMap<String, String> map) {
+        int update = publicUserMapper.update(map);
+        return update;
     }
 }
