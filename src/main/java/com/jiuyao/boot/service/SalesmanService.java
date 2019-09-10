@@ -26,4 +26,5 @@ public interface SalesmanService {
     Salesman getOneBySalesmanExtensionId(String salesmanExtensionId);
 
 
+    List<Salesman> getSalesman(HashMap<String, String> map);
 }

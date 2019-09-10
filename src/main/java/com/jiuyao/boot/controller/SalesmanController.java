@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -104,10 +103,69 @@ public class SalesmanController {
     }
 
     /**
+     * 按条件搜索业务员
+     * @return
+     */
+    @RequestMapping("/getSalesmanByParam")
+    public ModelAndView getSalesmanByParam(@RequestParam("name")String name, @RequestParam("salesmanExtensionId")String salesmanExtensionId,@RequestParam("salesmanName") String salesmanName){
+        System.out.println(name);
+        System.out.println(salesmanExtensionId);
+        System.out.println(salesmanName);
+        ModelAndView mv = new ModelAndView();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("name",name);
+        map.put("salesmanExtensionId",salesmanExtensionId);
+        map.put("salesmanName",salesmanName);
+        List<Salesman> salesmanList = salesmanService.getSalesman(map);
+        if (salesmanList.size()>0) {
+            for (Salesman salesman : salesmanList) {
+                if (salesman.getStatus().equals("1")){
+                    salesman.setStatus("审核中");
+                }else if (salesman.getStatus().equals("2")){
+                    salesman.setStatus("审核通过");
+                }else if (salesman.getStatus().equals("3")){
+                    salesman.setStatus("审核拒绝");
+                }
+                if (salesman.getType().equals("2")){
+                    salesman.setType("业务员");
+                }else if (salesman.getType().equals("1")){
+                    salesman.setType("管理员");
+                }
+            }
+        }
+        mv.setViewName("salesmanList");
+        mv.addObject("salesmanList",salesmanList);
+        return mv;
+    }
+
+    /**
+     * 按條件搜索用戶
+     */
+    @RequestMapping(value = "/getUserByParam",method = RequestMethod.POST)
+    public ModelAndView getUserByParam(@RequestParam("salesmanId") String salesmanId,@RequestParam("userPhone")String userPhone,@RequestParam("userName")String userName){
+        ModelAndView mv = new ModelAndView();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("salesmanId",salesmanId);
+        map.put("userPhone",userPhone);
+        map.put("userName",userName);
+        List<User> allUserList = userService.getUser(map);
+        if (allUserList.size()>0){
+            for (User user : allUserList) {
+                String salesmanId1 = user.getSalesmanId();
+                Salesman oneBySalesmanExtensionId = salesmanService.getOneBySalesmanExtensionId(salesmanId1);
+                user.setSalesmanName(oneBySalesmanExtensionId.getName());
+            }
+        }
+        mv.setViewName("userList");
+        mv.addObject("allUserList",allUserList);
+        return mv;
+    }
+
+    /**
      * 根据推广码删除业务员
      */
-    @RequestMapping("/salesman/delete")
-    public void delete(String salesmanExtensionId){
+    @RequestMapping("/delete")
+    public ModelAndView delete(String salesmanExtensionId){
         Message message = new Message();
         int i = salesmanService.deleteSalesmanByExtensionId(salesmanExtensionId);
         if (i > 0){
@@ -117,9 +175,27 @@ public class SalesmanController {
             message.setCode(MessageEnum.DELETE_FAIL.getCode());
             message.setMsg(MessageEnum.DELETE_FAIL.getMessage());
         }
-        System.out.println(salesmanExtensionId);
-
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("salesmanList");
+        mv.addObject("message",message);
+        return new ModelAndView("redirect:/getAllSalesman");
+//        return mv;
     }
+
+
+    /**
+     * 根据用户电话删除业务员的用户
+     * @param userPhone 用户电话
+     * @return
+     */
+    @RequestMapping("/deleteUser")
+    public ModelAndView deleteUser(String userPhone){
+        System.out.println(userPhone);
+        int delete = userService.delete(userPhone);
+        log.info("根据推广码删除用户结果，{}",delete);
+        return new ModelAndView("redirect:/getUserBySalesman");
+    }
+
 
 
     /**
@@ -134,13 +210,24 @@ public class SalesmanController {
         if (user != null ) {
             boolean emp = isEmp(user);
             if (emp) {//参数全有
-                //判断推广码是否还有效
-                Salesman salesman = salesmanService.getOneBySalesmanExtensionId(user.getSalesmanId());
-                if (salesman != null) {
-                    message = userService.userRegister(user, message);
-                }else {
-                    message.setCode(MessageEnum.SALESMAN_NOT_EXIST.getCode());
-                    message.setMsg(MessageEnum.SALESMAN_NOT_EXIST.getMessage());
+                //先判断用户是否已经绑定过业务员
+                HashMap<String, String> map = new HashMap<>();
+                map.put("userName",user.getUserName());
+                map.put("userPhone",user.getUserPhone());
+                User one = userService.getOne(map);
+                if (one == null){//客户没有被绑定
+                    //判断推广码是否还有效
+                    Salesman salesman = salesmanService.getOneBySalesmanExtensionId(user.getSalesmanId());
+                    if (salesman != null) {
+                        message = userService.userRegister(user, message);
+                    }else {
+                        message.setCode(MessageEnum.SALESMAN_NOT_EXIST.getCode());
+                        message.setMsg(MessageEnum.SALESMAN_NOT_EXIST.getMessage());
+                    }
+                }else {//客户被绑定过了
+                    log.info("客户被绑定过");
+                    message.setCode(MessageEnum.USERS_ARE_BOUND.getCode());
+                    message.setMsg(MessageEnum.USERS_ARE_BOUND.getMessage());
                 }
             }else {//参数有为空
                 message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
@@ -155,7 +242,7 @@ public class SalesmanController {
 
 
     /**
-     * 客户注册入口
+     * 绑定客户注册的入口
      * @param id 业务员推广码
      * @return 视图
      */

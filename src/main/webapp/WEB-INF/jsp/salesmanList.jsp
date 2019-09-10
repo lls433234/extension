@@ -47,34 +47,35 @@
 			<!-- content start -->
 			<div class="admin-content">
 				<div class="admin-content-body">
-					
 					<div class="container" style="padding: 50px 10px 0px 10px">
-						<div class="am-g">
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s1">姓名</span>&nbsp;&nbsp;<input class="input" type="text" name=""  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<form action="getSalesmanByParam" method="post">
+							<div class="am-g">
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s1">姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="name"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
 
 
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s2">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s2">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanExtensionId" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s3">手机号</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s3">手机号</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanName" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
 
-							<div class="am-u-sm-6 am-u-md-1">
-								<div class="am-input-group am-input-group-sm">
-<%--									<button class="button">搜索</button>--%>
-									<input class="button" type="button" value="搜索">
+								<div class="am-u-sm-6 am-u-md-1">
+									<div class="am-input-group am-input-group-sm">
+	<%--									<button class="button">搜索</button>--%>
+										<input class="button" type="submit" value="搜索">
+									</div>
 								</div>
 							</div>
-						</div>
+						</form>
 						<hr>
 						<div class="am-g" style="margin-top: -30px;">
 							<div class="am-u-sm-12">
@@ -106,6 +107,9 @@
 												<th>
 													创建时间
 												</th>
+												<th>
+													操作
+												</th>
 											</tr>
 
 										</thead>
@@ -122,6 +126,16 @@
 												<td>
 													<fmt:formatDate pattern="yyyy-MM-dd" value="${salesman.createTime}" type="both"/>
 												</td>
+												<td>
+													<div class="am-btn-toolbar">
+														<div class="am-btn-group am-btn-group-xs">
+															<button type="button" class="am-btn am-btn-default" id="btnDle">
+																<span class="icon-trash deleteUser"></span>
+																<a href="delete?salesmanExtensionId=${salesman.salesmanExtensionId}">删除</a>
+															</button>
+														</div>
+													</div>
+												</td>
 											</tr>
 										</c:forEach>
 										</tbody>
@@ -130,7 +144,7 @@
 							</div>
 						</div>
 					</div>
-
+					<p id="msg" style="display: none">${message.msg}</p>
 				</div>
 				<!-- content end -->
 			</div>
@@ -149,7 +163,11 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugs.js"></script>
 		<script>
 			$(function() {
-
+				let a = $("#msg").value();
+				if (a != null){
+					alert(a)
+				}
+				alert(a)
 			});
 		</script>
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -56,4 +57,24 @@ public class UserServiceImpl implements UserService {
         List<User> allBySalesmanExtensionId = userMapper.getAllBySalesmanExtensionId(salesmanExtensionId);
         return allBySalesmanExtensionId;
     }
+
+    @Override
+    public User getOne(HashMap<String, String> map) {
+        User one = userMapper.getOne(map);
+        return one;
+    }
+
+    @Override
+    public List<User> getUser(HashMap<String, String> map) {
+        List<User> user = userMapper.getUser(map);
+        return user;
+    }
+
+    @Override
+    public int delete(String userPhone) {
+        int delete = userMapper.delete(userPhone);
+        return delete;
+    }
+
+
 }

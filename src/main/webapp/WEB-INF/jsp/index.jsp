@@ -51,10 +51,9 @@
                     </div>
 
                 </div>
-                <div class=" textright"><a href="#" class="forget">忘记密码？</a></div>
+<%--                <div class=" textright"><a href="#" class="forget">忘记密码？</a></div>--%>
                 <div class="tishi"></div>
                 <div class="form-group">
-
                     <button class="btn btn-danger btn-block btn-login"><i class="fa fa-sign-in">登录</i></button>
                 </div>
 <%--                <div class=" textright"><a href="salesmanRegister" class="forget">立即注册</a></div>--%>
@@ -62,8 +61,6 @@
                 <div class="form-group">
 
                 </div>
-
-
             </form>
         </div>
 

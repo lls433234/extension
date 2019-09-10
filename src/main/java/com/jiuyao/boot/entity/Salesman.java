@@ -14,7 +14,7 @@ public class Salesman {
     private Integer salesmanId;
 
     /**
-     * 业务人员姓名
+     * 业务人员电话
      */
     private String salesmanName;
 

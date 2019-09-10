@@ -19,11 +19,12 @@ public interface SalesmanMapper {
      */
     List<Salesman> getAllByLimt();
 
-    int deleteByExtensionId();
+    int deleteByExtensionId(String salesmanExtensionId);
 
     Salesman getOne(HashMap<String, String> map);
 
     Salesman getOneBySalesmanExtensionId(String salesmanExtensionId);
 
 
+    List<Salesman> getSalesman(HashMap<String, String> map);
 }

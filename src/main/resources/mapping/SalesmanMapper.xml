@@ -42,5 +42,8 @@
         select * from salesman where salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR}
     </select>
 
+    <select id="getSalesman" parameterType="java.util.Map" resultMap="SalesmanMap">
+        select * from salesman where name = #{name,jdbcType=VARCHAR} OR salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR} OR salesman_name = #{salesmanName,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

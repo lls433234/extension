@@ -28,4 +28,16 @@
     <select id="getAllBySalesmanExtensionId" parameterType="java.lang.String" resultMap="UserMap">
         select * from user where salesman_id = #{salesmanExtensionId,jdbcType=VARCHAR}
     </select>
+
+    <select id="getOne" parameterType="java.util.Map" resultMap="UserMap">
+        select * from user where user_name = #{userName,jdbcType=VARCHAR} AND user_phone = #{userPhone,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getUser" parameterType="java.util.Map" resultMap="UserMap">
+        select * from user where user_name = #{userName,jdbcType=VARCHAR} or user_phone = #{userPhone,jdbcType=VARCHAR} or salesman_id= #{salesmanId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+         DELETE FROM user WHERE user_phone = #{userPhone,jdbcType=VARCHAR}
+    </delete>
 </mapper>

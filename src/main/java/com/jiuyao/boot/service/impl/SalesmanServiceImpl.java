@@ -39,7 +39,7 @@ public class SalesmanServiceImpl implements SalesmanService {
 
     @Override
     public int deleteSalesmanByExtensionId(String salesmanExtensionId) {
-        int i = salesmanMapper.deleteByExtensionId();
+        int i = salesmanMapper.deleteByExtensionId(salesmanExtensionId);
         return i;
     }
 
@@ -53,6 +53,12 @@ public class SalesmanServiceImpl implements SalesmanService {
     public Salesman getOneBySalesmanExtensionId(String salesmanExtensionId) {
         Salesman oneBySalesmanExtensionId = salesmanMapper.getOneBySalesmanExtensionId(salesmanExtensionId);
         return oneBySalesmanExtensionId;
+    }
+
+    @Override
+    public List<Salesman> getSalesman(HashMap<String, String> map) {
+        List<Salesman> salesman = salesmanMapper.getSalesman(map);
+        return salesman;
     }
 
 

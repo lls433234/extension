@@ -49,30 +49,32 @@
 				<div class="admin-content-body">
 					
 					<div class="container" style="padding: 50px 10px 0px 10px">
-						<div class="am-g">
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s1">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name=""  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<form action="getUserByParam" method="post">
+							<div class="am-g">
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s1">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanId"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-2">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s2">电话号</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s2">电话号</span>&nbsp;&nbsp;<input class="input" type="text" name="userPhone" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
-							<div class="am-u-sm-12 am-u-md-3">
-								<div class="am-input-group am-input-group-sm">
-									<span id="s3">用户姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="am-u-sm-12 am-u-md-3">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s3">用户姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="userName" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
 								</div>
-							</div>
 
-							<div class="am-u-sm-6 am-u-md-1">
-								<div class="am-input-group am-input-group-sm">
-<%--									<button class="button">搜索</button>--%>
-									<input class="button" type="button" value="搜索">
+								<div class="am-u-sm-6 am-u-md-1">
+									<div class="am-input-group am-input-group-sm">
+	<%--									<button class="button">搜索</button>--%>
+										<input class="button" type="submit" value="搜索">
+									</div>
 								</div>
 							</div>
-						</div>
+						</form>
 						<hr style="height: 2px">
 						<div class="am-g" style="margin-top: -30px;">
 							<div class="am-u-sm-12">
@@ -98,6 +100,9 @@
 												<th>
 													创建时间
 												</th>
+												<th>
+													操作
+												</th>
 											</tr>
 
 										</thead>
@@ -111,6 +116,16 @@
 												<td>${user.salesmanName}</td>
 												<td>
 													<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.createTime}" type="both"/>
+												</td>
+												<td>
+													<div class="am-btn-toolbar">
+														<div class="am-btn-group am-btn-group-xs">
+															<button type="button" class="am-btn am-btn-default" id="btnDle">
+																<span class="icon-trash deleteUser"></span>
+																<a href="deleteUser?userPhone=${user.userPhone}">删除</a>
+															</button>
+														</div>
+													</div>
 												</td>
 											</tr>
 										</c:forEach>
