@@ -1,7 +1,6 @@
 package com.jiuyao.boot.controller;
 
 import cn.hutool.core.lang.ObjectId;
-import com.alibaba.fastjson.JSONObject;
 import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.User;
@@ -10,12 +9,21 @@ import com.jiuyao.boot.entity.dto.MessageEnum;
 import com.jiuyao.boot.service.PublicUserService;
 import com.jiuyao.boot.service.SalesmanService;
 import com.jiuyao.boot.service.UserService;
+import com.jiuyao.boot.service.impl.UploadService;
 import com.jiuyao.boot.utils.QrCodeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +38,12 @@ public class SalesmanController {
     private UserService userService;
     @Autowired
     private PublicUserService publicUserService;
-
-    /**
+    @Autowired
+    private UploadService uploadService;
+    /***
      * 登录
+     * @param salesman
+     * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
@@ -78,29 +89,24 @@ public class SalesmanController {
     /**
      * 回显所有业务员信息
      */
-    @RequestMapping("/getAllSalesman")
+    @RequestMapping("/getAllPublic")
     public ModelAndView getAll(){
         ModelAndView mv = new ModelAndView();
         log.info("获取所有业务人员信息开始执行");
-        List<Salesman> salesmanList = salesmanService.getAll();
-        if (salesmanList.size()>0) {
-            for (Salesman salesman : salesmanList) {
-                if (salesman.getStatus().equals("1")){
-                    salesman.setStatus("审核中");
-                }else if (salesman.getStatus().equals("2")){
-                    salesman.setStatus("审核通过");
-                }else if (salesman.getStatus().equals("3")){
-                    salesman.setStatus("审核拒绝");
-                }
-                if (salesman.getType().equals("2")){
-                    salesman.setType("业务员");
-                }else if (salesman.getType().equals("1")){
-                    salesman.setType("管理员");
+        List<PublicUser> all = publicUserService.getAll();
+        if (all.size()>0) {
+            for (PublicUser publicUser : all) {
+                if (publicUser.getStatus().equals("1")){
+                    publicUser.setStatus("审核拒绝");
+                }else if (publicUser.getStatus().equals("2")){
+                    publicUser.setStatus("审核通过");
+                }else if (publicUser.getStatus().equals("3")){
+                    publicUser.setStatus("未审核");
                 }
             }
         }
-        mv.addObject("salesmanList",salesmanList);
-        mv.setViewName("salesmanList");
+        mv.addObject("all",all);
+        mv.setViewName("publicUserList");
         return mv;
     }
 
@@ -108,35 +114,30 @@ public class SalesmanController {
      * 按条件搜索业务员
      * @return
      */
-    @RequestMapping("/getSalesmanByParam")
-    public ModelAndView getSalesmanByParam(@RequestParam("name")String name, @RequestParam("salesmanExtensionId")String salesmanExtensionId,@RequestParam("salesmanName") String salesmanName){
+    @RequestMapping("/getPublicByParam")
+    public ModelAndView getSalesmanByParam(@RequestParam("name")String name, @RequestParam("salesmanExtensionId")String salesmanExtensionId,@RequestParam("phone") String phone){
         System.out.println(name);
         System.out.println(salesmanExtensionId);
-        System.out.println(salesmanName);
+        System.out.println(phone);
         ModelAndView mv = new ModelAndView();
         HashMap<String, String> map = new HashMap<>();
         map.put("name",name);
         map.put("salesmanExtensionId",salesmanExtensionId);
-        map.put("salesmanName",salesmanName);
-        List<Salesman> salesmanList = salesmanService.getSalesman(map);
-        if (salesmanList.size()>0) {
-            for (Salesman salesman : salesmanList) {
-                if (salesman.getStatus().equals("1")){
-                    salesman.setStatus("审核中");
-                }else if (salesman.getStatus().equals("2")){
-                    salesman.setStatus("审核通过");
-                }else if (salesman.getStatus().equals("3")){
-                    salesman.setStatus("审核拒绝");
-                }
-                if (salesman.getType().equals("2")){
-                    salesman.setType("业务员");
-                }else if (salesman.getType().equals("1")){
-                    salesman.setType("管理员");
+        map.put("phone",phone);
+        List<PublicUser> all = publicUserService.getPublicUser(map);
+        if (all.size()>0) {
+            for (PublicUser publicUser : all) {
+                if (publicUser.getStatus().equals("1")){
+                    publicUser.setStatus("审核拒绝");
+                }else if (publicUser.getStatus().equals("2")){
+                    publicUser.setStatus("审核通过");
+                }else if (publicUser.getStatus().equals("3")){
+                    publicUser.setStatus("未审核");
                 }
             }
         }
-        mv.setViewName("salesmanList");
-        mv.addObject("salesmanList",salesmanList);
+        mv.setViewName("publicUserList");
+        mv.addObject("all",all);
         return mv;
     }
 
@@ -154,7 +155,7 @@ public class SalesmanController {
         if (allUserList.size()>0){
             for (User user : allUserList) {
                 String salesmanId1 = user.getSalesmanId();
-                Salesman oneBySalesmanExtensionId = salesmanService.getOneBySalesmanExtensionId(salesmanId1);
+                PublicUser oneBySalesmanExtensionId = publicUserService.getOneBySalesmanExtensionId(salesmanId1);
                 user.setSalesmanName(oneBySalesmanExtensionId.getName());
             }
         }
@@ -169,7 +170,7 @@ public class SalesmanController {
     @RequestMapping("/delete")
     public ModelAndView delete(String salesmanExtensionId){
         Message message = new Message();
-        int i = salesmanService.deleteSalesmanByExtensionId(salesmanExtensionId);
+        int i = publicUserService.deletePublicUserByExtensionId(salesmanExtensionId);
         if (i > 0){
             message.setCode(MessageEnum.DELETE_SUCCESS.getCode());
             message.setMsg(MessageEnum.DELETE_SUCCESS.getMessage());
@@ -178,9 +179,9 @@ public class SalesmanController {
             message.setMsg(MessageEnum.DELETE_FAIL.getMessage());
         }
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("salesmanList");
+        mv.setViewName("publicUserList");
         mv.addObject("message",message);
-        return new ModelAndView("redirect:/getAllSalesman");
+        return new ModelAndView("redirect:/getAllPublic");
 //        return mv;
     }
 
@@ -195,16 +196,15 @@ public class SalesmanController {
         System.out.println(userPhone);
         int delete = userService.delete(userPhone);
         log.info("根据推广码删除用户结果，{}",delete);
-        return new ModelAndView("redirect:/getUserBySalesman");
+        return new ModelAndView("redirect:/getUserByPublicUser");
     }
 
 
 
     /**
-     * 用户根据推广码进行注册
+     * 用户根据二维码进行注册
      */
     @RequestMapping(value = "/userRegister",method = RequestMethod.POST)
-//    @ResponseBody
     public ModelAndView userRegister(User user){
         log.info("客户申请数据，{}",user);
         ModelAndView mv = new ModelAndView();
@@ -220,8 +220,8 @@ public class SalesmanController {
                 User one = userService.getOne(map);
                 if (one == null){//客户没有被绑定
                     //判断推广码是否还有效
-                    Salesman salesman = salesmanService.getOneBySalesmanExtensionId(user.getSalesmanId());
-                    if (salesman != null) {
+                    PublicUser oneBySalesmanExtensionId = publicUserService.getOneBySalesmanExtensionId(user.getSalesmanId());
+                    if (oneBySalesmanExtensionId != null) {
                         message = userService.userRegister(user, message);
                     }else {
                         message.setCode(MessageEnum.SALESMAN_NOT_EXIST.getCode());
@@ -244,7 +244,6 @@ public class SalesmanController {
         mv.setViewName("userRegisterSuccess");
         mv.addObject("msg",message);
         return mv;
-//        return JSONObject.toJSON(message).toString();
     }
 
 
@@ -308,8 +307,6 @@ public class SalesmanController {
             List<PublicUser> oneByNameAndPhone = publicUserService.getOneByNameAndPhone(map);
             if (oneByNameAndPhone.size() == 0){//没有注册过
                 publicUser.setCreateTime(new Date());
-                String next = ObjectId.next();//生成推广码
-                publicUser.setSalesmanExtensionId(next);
                 publicUser.setStatus("3");
                 int save = publicUserService.save(publicUser);
                 if (save > 0) {//注册成功
@@ -331,7 +328,6 @@ public class SalesmanController {
             message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
             mv.setViewName("publicUserRegister");
         }
-
         mv.addObject("msg",message);
         return mv;
     }
@@ -356,7 +352,7 @@ public class SalesmanController {
             }
         }
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("publicUserList");
+        mv.setViewName("publicSH");
         mv.addObject("allPublicUser",all);
         return mv;
     }
@@ -375,16 +371,34 @@ public class SalesmanController {
         HashMap<String, String> map = new HashMap<>();
         map.put("phone",phone);
         map.put("status",status);
+        String salesmanExtensionId = ObjectId.next();//生成推广码
+        map.put("salesmanExtensionId",salesmanExtensionId);
         int update = publicUserService.update(map);
         log.info("更新审核状态结果，{}",update);
         //生成链接
-        String url = "http://www.baidu.com";
+        String url = "http://192.168.0.104:8085/context/"+salesmanExtensionId;
         //配置生成路径
-        String path = "D:\\二维码测试\\photo";
+        String path = "src/main/resources/static/img";
+
         //生成文件名称
-        String fileName = name+".png";
+        String fileName = name+phone+".png";
         if (status.equals("2")){
             QrCodeUtil.createQrCode(url, path, fileName);
+            String filePath = path+"\\"+fileName;
+            File file = new File(filePath);
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            MultipartFile multipartFile = null;
+            try {
+                multipartFile = new MockMultipartFile("copy",fileName, ContentType.APPLICATION_OCTET_STREAM.toString(),fileInputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            uploadService.uploadFile(multipartFile,"document");
         }
         return new ModelAndView("redirect:/getPublicUser");
     }
@@ -398,7 +412,6 @@ public class SalesmanController {
             return false;
         }
     }
-
 
 
     boolean isEmp(User user){

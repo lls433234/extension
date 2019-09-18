@@ -32,9 +32,9 @@
             <div class="form-group clearfix">
                 <div class="input-group">
                     <p style="font-size: 30px;font-family: 黑体;color: #08bbe1;font-weight: bold;margin-left: 30%;width: 300px">恭喜您：${msg.msg}</p>
-                    <button style="font-size: 15px;margin:auto;border-radius: 3px;" type="button" value=""  onClick="window.location.href='http://www.baidu.com'">
-                        立即登录
-                    </button>
+<%--                    <button style="font-size: 15px;margin:auto;border-radius: 3px;" type="button" value=""  onClick="window.location.href='http://www.baidu.com'">--%>
+<%--                        立即登录--%>
+<%--                    </button>--%>
                 </div>
             </div>
 

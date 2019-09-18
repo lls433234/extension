@@ -1,6 +1,7 @@
 package com.jiuyao.boot.service;
 
 import com.jiuyao.boot.entity.PublicUser;
+import com.jiuyao.boot.entity.Salesman;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,4 +16,10 @@ public interface PublicUserService {
     List<PublicUser> getAll();
 
     int update(HashMap<String, String> map);
+
+    PublicUser getOneBySalesmanExtensionId(String salesmanId);
+
+    List<PublicUser> getPublicUser(HashMap<String, String> map);
+
+    int deletePublicUserByExtensionId(String salesmanExtensionId);
 }

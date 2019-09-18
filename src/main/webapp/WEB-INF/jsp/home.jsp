@@ -34,9 +34,9 @@
     <h2><span class="icon-user"></span>基本信息</h2>
     <ul id="ul1" style="display:block">
         <li><a href="addSalesman" target="right"><span class="icon-caret-right"></span>添加业务员</a></li>
-        <li><a href="getAllSalesman" target="right"><span class="icon-caret-right"></span>业务员管理</a></li>
+        <li><a href="getAllPublic" target="right"><span class="icon-caret-right"></span>业务员管理</a></li>
         <li><a href="getPublicUser" target="right"><span class="icon-caret-right"></span>业务员审核</a></li>
-        <li><a href="getUserBySalesman" target="right"><span class="icon-caret-right"></span>业务员客户</a></li>
+        <li><a href="getUserByPublicUser" target="right"><span class="icon-caret-right"></span>业务员客户</a></li>
     </ul>
 
 </div>

@@ -51,4 +51,24 @@ public class PublicUserServiceImpl implements PublicUserService {
         int update = publicUserMapper.update(map);
         return update;
     }
+
+    @Override
+    public PublicUser getOneBySalesmanExtensionId(String salesmanId) {
+        PublicUser oneBySalesmanExtensionId = publicUserMapper.getOneBySalesmanExtensionId(salesmanId);
+        return oneBySalesmanExtensionId;
+    }
+
+    @Override
+    public List<PublicUser> getPublicUser(HashMap<String, String> map) {
+        List<PublicUser> publicUser = publicUserMapper.getPublicUser(map);
+        return publicUser;
+    }
+
+    @Override
+    public int deletePublicUserByExtensionId(String salesmanExtensionId) {
+        int i = publicUserMapper.deletePublicUserByExtensionId(salesmanExtensionId);
+        return i;
+    }
+
+
 }

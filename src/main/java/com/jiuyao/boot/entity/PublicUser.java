@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 公共用户信息实体
+ * 业务员
  */
 @Data
 public class PublicUser {
@@ -23,6 +23,10 @@ public class PublicUser {
      */
     private String salesmanExtensionId;
 
+    /**
+     * 用户类型（1.经销商；2.普通用户）
+     */
+//    private String type;
     /**
      * 审核状态（1:未通过；2:通过；3:未审核）
      */

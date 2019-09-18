@@ -35,7 +35,7 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入姓名"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入真实姓名"
                                autocomplete="off">
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="请输入手机号"
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="请输入登录手机号"
                                autocomplete="off">
                     </div>
 
@@ -57,7 +57,7 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="password" id="password" placeholder="请输入密码"
+                        <input type="text" class="form-control" name="password" id="password" placeholder="请输入登录密码"
                                autocomplete="off">
                     </div>
                 </div>

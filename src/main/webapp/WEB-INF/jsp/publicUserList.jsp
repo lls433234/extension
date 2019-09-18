@@ -6,7 +6,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>绑定用户信息</title>
+		<title>业务员信息</title>
 
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/amazeui.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin2.css">
@@ -47,23 +47,24 @@
 			<!-- content start -->
 			<div class="admin-content">
 				<div class="admin-content-body">
-					
 					<div class="container" style="padding: 50px 10px 0px 10px">
-						<form action="getUserByParam" method="post">
+						<form action="getPublicByParam" method="post">
 							<div class="am-g">
 								<div class="am-u-sm-12 am-u-md-2">
 									<div class="am-input-group am-input-group-sm">
-										<span id="s1">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanId"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="s1">姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="name"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
+								</div>
+
+
+								<div class="am-u-sm-12 am-u-md-2">
+									<div class="am-input-group am-input-group-sm">
+										<span id="s2">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanExtensionId" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 								</div>
 								<div class="am-u-sm-12 am-u-md-2">
 									<div class="am-input-group am-input-group-sm">
-										<span id="s2">电话号</span>&nbsp;&nbsp;<input class="input" type="text" name="userPhone" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									</div>
-								</div>
-								<div class="am-u-sm-12 am-u-md-3">
-									<div class="am-input-group am-input-group-sm">
-										<span id="s3">用户姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="userName" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<span id="s3">手机号</span>&nbsp;&nbsp;<input class="input" type="text" name="phone" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 								</div>
 
@@ -75,27 +76,27 @@
 								</div>
 							</div>
 						</form>
-						<hr style="height: 2px">
+						<hr>
 						<div class="am-g" style="margin-top: -30px;">
 							<div class="am-u-sm-12">
-								<form class="am-form" action="" style="font-family: '微软雅黑', Microsoft YaHei UI">
+								<form class="am-form" action="">
 									<table class="am-table am-table-striped am-table-hover table-main">
 										<thead>
 											<tr>
 												<th class="table-title">
-													用户编号
+													编号
 												</th>
 												<th>
-													姓名
+													业务员姓名
 												</th>
 												<th>
-													电话
+													业务员电话号码
 												</th>
 												<th>
-													推广码
+													业务员推广码
 												</th>
 												<th>
-													审核状态
+													状态
 												</th>
 												<th>
 													创建时间
@@ -107,7 +108,7 @@
 
 										</thead>
 										<tbody id="tUser">
-										<c:forEach items="${allPublicUser}" var="publicUser">
+										<c:forEach items="${all}" var="publicUser">
 											<tr>
 												<td>${publicUser.id}</td>
 												<td>${publicUser.name}</td>
@@ -119,44 +120,12 @@
 												</td>
 												<td>
 													<div class="am-btn-toolbar">
-														<c:if test="${publicUser.status =='未审核'}">
-															<div class="am-btn-group am-btn-group-xs">
-																<button type="button" class="am-btn am-btn-default" id="btnYes1" style="background-color: #00aa00;border-radius: 10px;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="examine?phone=${publicUser.phone}&status=2&name=${publicUser.name}">通过</a>
-																</button>
-																<button type="button" class="am-btn am-btn-default" id="btnNo1" style="background-color: red;border-radius: 10px;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="examine?phone=${publicUser.phone}&status=1&name=${publicUser.name}">不通过</a>
-																</button>
-															</div>
-														</c:if>
-
-														<c:if test="${publicUser.status =='未通过'}">
-															<div class="am-btn-group am-btn-group-xs">
-																<button type="button" class="am-btn am-btn-default" id="btnYes2" style="background-color: #9d9d9d;border-radius: 10px;pointer-events: none;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="">通过</a>
-																</button>
-																<button type="button" class="am-btn am-btn-default" id="btnNo2" style="background-color: #9d9d9d;border-radius: 10px;pointer-events: none;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="">不通过</a>
-																</button>
-															</div>
-														</c:if>
-
-														<c:if test="${publicUser.status =='通过'}">
-															<div class="am-btn-group am-btn-group-xs">
-																<button type="button" class="am-btn am-btn-default" id="btnYes3" style="background-color: #9d9d9d;border-radius: 10px;pointer-events: none;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="">通过</a>
-																</button>
-																<button type="button" class="am-btn am-btn-default" id="btnNo3" style="background-color: #9d9d9d;border-radius: 10px;pointer-events: none;">
-																	<span class="icon-trash deleteUser"></span>
-																	<a style="color: white;font-size: 12px" href="">不通过</a>
-																</button>
-															</div>
-														</c:if>
+														<div class="am-btn-group am-btn-group-xs">
+															<button type="button" class="am-btn am-btn-default" id="btnDle">
+																<span class="icon-trash deleteUser"></span>
+																<a href="delete?salesmanExtensionId=${publicUser.salesmanExtensionId}">删除</a>
+															</button>
+														</div>
 													</div>
 												</td>
 											</tr>
@@ -167,7 +136,7 @@
 							</div>
 						</div>
 					</div>
-
+					<p id="msg" style="display: none">${message.msg}</p>
 				</div>
 				<!-- content end -->
 			</div>
@@ -186,7 +155,11 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/plugs.js"></script>
 		<script>
 			$(function() {
-
+				let a = $("#msg").value();
+				if (a != null){
+					alert(a)
+				}
+				alert(a)
 			});
 		</script>
 

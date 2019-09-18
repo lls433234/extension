@@ -17,4 +17,10 @@ public interface PublicUserMapper {
     List<PublicUser> getAll();
 
     int update(HashMap<String, String> map);
+
+    PublicUser getOneBySalesmanExtensionId(String salesmanId);
+
+    List<PublicUser> getPublicUser(HashMap<String, String> map);
+
+    int deletePublicUserByExtensionId(String salesmanExtensionId);
 }

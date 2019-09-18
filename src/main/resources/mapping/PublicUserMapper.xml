@@ -7,24 +7,37 @@
       <result column="phone" jdbcType="VARCHAR" property="phone" />
       <result column="password" jdbcType="VARCHAR" property="password" />
       <result column="salesman_extension_id" jdbcType="VARCHAR" property="salesmanExtensionId" />
+<!--      <result column="type" jdbcType="VARCHAR" property="type" />-->
       <result column="status" jdbcType="VARCHAR" property="status" />
       <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 
 
     <select id="getOneByNameAndPhone" parameterType="java.util.Map" resultMap="publicUserMap">
-        select * from public_user where name = #{name,jdbcType=VARCHAR} or phone = #{phone,jdbcType=VARCHAR}
+        select * from public_user where name = #{name,jdbcType=VARCHAR} or phone = #{phone,jdbcType=VARCHAR} order by create_time desc
     </select>
 
     <insert id="save" parameterType="com.jiuyao.boot.entity.PublicUser">
-        insert into public_user (name,phone,password,salesman_extension_id,status) values (#{name,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{salesmanExtensionId,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+        insert into public_user (name,phone,password,status) values (#{name,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
     </insert>
 
     <select id="getAll" resultMap="publicUserMap">
-        select * from public_user
+        select * from public_user order by create_time desc
     </select>
 
     <update id="update" parameterType="java.util.Map">
-        update public_user  set status = #{status,jdbcType=VARCHAR} where phone = #{phone,jdbcType=VARCHAR}
+        update public_user set status = #{status,jdbcType=VARCHAR},salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR} where phone = #{phone,jdbcType=VARCHAR}
     </update>
+
+    <select id="getOneBySalesmanExtensionId" parameterType="java.lang.String" resultMap="publicUserMap">
+        select * from public_user where salesman_extension_id =#{salesmanId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getPublicUser" parameterType="java.util.Map" resultMap="publicUserMap">
+        select * from public_user where name=#{name,jdbcType=VARCHAR} OR phone = #{phone,jdbcType=VARCHAR} OR salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR} order by create_time desc
+    </select>
+
+    <delete id="deletePublicUserByExtensionId" parameterType="java.lang.String">
+        delete from public_user where salesman_extension_id = #{salesmanExtensionId,jdbcType=VARCHAR}
+    </delete>
 </mapper>

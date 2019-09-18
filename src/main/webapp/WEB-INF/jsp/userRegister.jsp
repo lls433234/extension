@@ -18,7 +18,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
     <!--[if IE]>
     <script src="js/html5.js"></script><![endif]-->
-    <title>客户注册</title>
+    <title>用户注册</title>
 </head>
 
 <body class="logobg_style">
@@ -26,14 +26,15 @@
     <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
-            <h1 class="title_name">用户注册</h1>
+<%--            <h1 class="title_name">用户注册</h1>--%>
+            <img class="title_name" src="${pageContext.request.contextPath}/images/91.png" style="margin:0 auto;height: 150px ">
             <form action="/userRegister" method="post" id="form_login" class="login_padding">
                 <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入姓名"
+                        <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入真实姓名"
                                autocomplete="off">
                     </div>
                 </div>
@@ -43,7 +44,17 @@
                         <div class="input-group-addon">
                             <i class="icon_user"></i>
                         </div>
-                        <input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="请输入手机号"
+                        <input type="text" class="form-control" name="userPhone" id="userPhone" placeholder="请输入登录手机号"
+                               autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="icon_user"></i>
+                        </div>
+                        <input type="text" class="form-control" name="password" id="password" placeholder="请输入登录密码"
                                autocomplete="off">
                     </div>
                 </div>

@@ -1,9 +1,11 @@
 package com.jiuyao.boot.controller;
 
+import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.User;
 import com.jiuyao.boot.entity.dto.Message;
 import com.jiuyao.boot.entity.dto.MessageEnum;
+import com.jiuyao.boot.service.PublicUserService;
 import com.jiuyao.boot.service.SalesmanService;
 import com.jiuyao.boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class BackController {
     private UserService userService;
     @Autowired
     private SalesmanService salesmanService;
+    @Autowired
+    private PublicUserService publicUserService;
 
     /**
      * 添加业务员
@@ -36,17 +40,17 @@ public class BackController {
      * 获取所有业务员绑定的用户
      * @return
      */
-    @RequestMapping("/getUserBySalesman")
-    public ModelAndView getUserBySalesman(){
+    @RequestMapping("/getUserByPublicUser")
+    public ModelAndView getUserByPublicUser(){
         Message message = new Message();
         ModelAndView mv = new ModelAndView();
         List<User> allUserList = userService.getAll();
             for (User user : allUserList) {
                 if (user != null){
                     String salesmanExtensionId = user.getSalesmanId();
-                    Salesman oneBySalesmanExtensionId = salesmanService.getOneBySalesmanExtensionId(salesmanExtensionId);
-                    if (oneBySalesmanExtensionId != null){
-                        user.setSalesmanName(oneBySalesmanExtensionId.getName());
+                    PublicUser oneByPublicUserExtensionId = publicUserService.getOneBySalesmanExtensionId(salesmanExtensionId);
+                    if (oneByPublicUserExtensionId != null){
+                        user.setSalesmanName(oneByPublicUserExtensionId.getName());
                     }else {
                         user.setSalesmanName("未知");
                     }
