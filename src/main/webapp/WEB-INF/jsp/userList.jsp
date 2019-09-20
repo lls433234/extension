@@ -39,6 +39,14 @@
 				font-size: 14px;
 			}
 
+			.pagination{
+				list-style:none
+			}
+
+			.list{
+				float:left;
+				margin: 10px;
+			}
 		</style>
 	</head>
 
@@ -47,7 +55,6 @@
 			<!-- content start -->
 			<div class="admin-content">
 				<div class="admin-content-body">
-					
 					<div class="container" style="padding: 50px 10px 0px 10px">
 						<form action="getUserByParam" method="post">
 							<div class="am-g">
@@ -138,6 +145,15 @@
 
 				</div>
 				<!-- content end -->
+				<nav>
+					<ul class="pagination" style="margin-top:50px;margin-left: 600px">
+						<li class="list"><a href="${pageContext.request.contextPath}/getUserByPublicUser?page=${sessionScope.pageSize - 1}" class="pri"><span>上一页</span></a></li>
+						<c:forEach begin="1" end="${pageTotal}" varStatus="index">
+							<li class="list" ${sessionScope.pageSize == index ? "class='active'":""}><a href="${pageContext.request.contextPath}/getUserByPublicUser?page=${index.index}">${index.index}</a></li>
+						</c:forEach>
+						<li class="list"><a href="${pageContext.request.contextPath}/getUserByPublicUser?page=${sessionScope.pageSize + 1}"><span>下一页</span></a></li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 

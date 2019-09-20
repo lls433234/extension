@@ -1,5 +1,6 @@
 package com.jiuyao.boot.controller;
 
+import com.jiuyao.boot.entity.Page;
 import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -30,9 +32,9 @@ public class BackController {
      * 添加业务员
      * @return
      */
-    @RequestMapping("/addSalesman")
+    @RequestMapping("/addPublicUser")
     public String  addSalesman(){
-        return "salesmanRegister";
+        return "publicUserRegister";
     }
 
 
@@ -41,10 +43,28 @@ public class BackController {
      * @return
      */
     @RequestMapping("/getUserByPublicUser")
-    public ModelAndView getUserByPublicUser(){
-        Message message = new Message();
+    public ModelAndView getUserByPublicUser(String page){
         ModelAndView mv = new ModelAndView();
-        List<User> allUserList = userService.getAll();
+        System.out.println(page);
+        Page<User> page2 = new Page<>();
+        //查询所有业绩记录
+        List<User> all = userService.getAll();
+        int pageTotal = page2.setPageTotal(all.size());
+        int ps = 1;
+        if(page == null){
+            ps = page2.calculatePageSize(1);
+        }else {
+            ps = page2.calculatePageSize(new Integer(page));
+        }
+        int start = (ps - 1)*page2.getPageCount();
+        int end = page2.getPageCount();
+
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("start",start);
+        map.put("end",end);
+        List<User> allUserList = userService.getAllByLimit(map);
+//        Message message = new Message();
+//        List<User> allUserList = userService.getAll();
             for (User user : allUserList) {
                 if (user != null){
                     String salesmanExtensionId = user.getSalesmanId();
@@ -59,6 +79,7 @@ public class BackController {
 
         mv.setViewName("userList");
         mv.addObject("allUserList",allUserList);
+        mv.addObject("pageTotal",pageTotal);
         return mv;
     }
 

@@ -5,7 +5,9 @@ import com.masget.api.security.AesEncryption;
 import com.masget.api.security.HttpsUtil;
 import com.masget.api.security.MD5Util;
 import com.masget.api.security.TimeUtil;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ApiUtil {
 	private static final String FORMAT = "json";
 	private static final String VERSION = "2.0";
@@ -29,10 +31,9 @@ public class ApiUtil {
 			requestObj.put("v", VERSION);
 			requestObj.put("timestamp", timestamp);
 			requestObj.put("sign", signstr);
-
 			result = HttpsUtil.doSslPost(openApiUrl,
 					requestObj.toJSONString(), "utf-8");
-            System.out.println(requestObj.toJSONString());
+			log.info("请求内容==============，{}",requestObj.toJSONString());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			result = ex.getMessage();

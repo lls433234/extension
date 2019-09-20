@@ -18,7 +18,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
     <!--[if IE]>
     <script src="js/html5.js"></script><![endif]-->
-    <title>用户注册</title>
+    <title>91用车APP注册</title>
 </head>
 
 <body class="logobg_style">

@@ -4,6 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class QrCodeUtil {
 
     public static String createQrCode(String url, String path, String fileName) {
@@ -24,8 +26,8 @@ public class QrCodeUtil {
             if (file.exists() || ((file.getParentFile().exists() || file.getParentFile().mkdirs()) && file.createNewFile())) {
                 writeToFile(bitMatrix, "jpg", file);
                 System.out.println("成功：" + file);
+                log.info("成功：==========={}" , file);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

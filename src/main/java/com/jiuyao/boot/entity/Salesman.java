@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 后台管理员
+ */
 @Data
 @Component
 public class Salesman {

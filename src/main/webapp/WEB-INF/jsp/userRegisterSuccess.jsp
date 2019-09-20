@@ -18,12 +18,12 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
     <!--[if IE]>
     <script src="js/html5.js"></script><![endif]-->
-    <title>用户注册</title>
+    <title>91用车APP注册</title>
 </head>
 
 <body class="logobg_style">
 <div id="large-header" class="large-header login-page">
-    <canvas id="demo-canvas" width="1590" height="611"></canvas>
+    <canvas id="demo-canvas" width="1590" height="711"></canvas>
     <div class="login-form">
         <div class="login-content">
             <%--            <h1 class="title_name">用户注册</h1>--%>
@@ -31,15 +31,15 @@
             <div class="login-content">
                 <c:if test="${msg.code=='10040'}">
                     <h3 style="color:white;">对不起：${msg.msg}</h3>
-                    <p></p>
                     <h4 style="color:white;">注册失败，请重新扫码注册</h4>
                 </c:if>
                 <c:if test="${msg.code=='10000'}">
                     <h3 style="color:white;">恭喜您：${msg.msg}</h3>
-                    <h3>2秒后跳转下载！</h3>
+<%--                    <h3>2秒后跳转下载！</h3>--%>
+                    <h4 style="color:white;">可以立即登录91用车手机APP了！</h4>
                     <%
                         //3秒后跳转到
-                        response.setHeader("refresh", "2;URL=http://www.baidu.com");
+//                        response.setHeader("refresh", "2;URL=http://www.baidu.com");
                     %>
                 </c:if>
                 <c:if test="${msg.code=='10050'}">

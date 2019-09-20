@@ -40,6 +40,14 @@ public class SalesmanController {
     private PublicUserService publicUserService;
     @Autowired
     private UploadService uploadService;
+
+    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+    @ResponseBody
+    public String hello(Salesman salesman){
+        return "see hello jiuyao";
+    }
+
+
     /***
      * 登录
      * @param salesman
@@ -72,7 +80,7 @@ public class SalesmanController {
     }
 
     /**
-     * 业务人员注册信息
+     * 后台手动添加业务员
      */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
@@ -291,7 +299,7 @@ public class SalesmanController {
     }
 
     /**
-     * 公共用户注册
+     * 业务员注册
      * @return 视图
      */
     @RequestMapping(value = "/publicUserRegister",method = RequestMethod.POST)
@@ -376,15 +384,14 @@ public class SalesmanController {
         int update = publicUserService.update(map);
         log.info("更新审核状态结果，{}",update);
         //生成链接
-        String url = "http://192.168.0.104:8085/context/"+salesmanExtensionId;
+        String url = "http://39.100.6.47:8085/jiuyao/context/"+salesmanExtensionId;
         //配置生成路径
         String path = "src/main/resources/static/img";
-
         //生成文件名称
         String fileName = name+phone+".png";
         if (status.equals("2")){
             QrCodeUtil.createQrCode(url, path, fileName);
-            String filePath = path+"\\"+fileName;
+            String filePath = path+"/"+fileName;
             File file = new File(filePath);
             FileInputStream fileInputStream = null;
             try {

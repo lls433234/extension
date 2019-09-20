@@ -3,23 +3,18 @@ package com.jiuyao.boot.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jiuyao.boot.entity.User;
+import com.jiuyao.boot.entity.YlLog;
 import com.jiuyao.boot.entity.dto.Message;
-import com.jiuyao.boot.entity.dto.UserDto;
 import com.jiuyao.boot.mapper.UserMapper;
+import com.jiuyao.boot.mapper.YlLogMapper;
 import com.jiuyao.boot.service.UserService;
-import com.jiuyao.boot.utils.HttpClientUtil;
 import com.jiuyao.boot.utils.method.ApiUtil;
-import com.jiuyao.boot.utils.security.AesEncryption;
 import com.jiuyao.boot.utils.security.MD5Util;
-import com.masget.api.security.HttpsUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,14 +27,20 @@ public class UserServiceImpl implements UserService {
     public static final String appid = "400433579";
     public static final String session = "5pvowrqo3c168oeltmsv8b1x3l0sr8om";
     public static final String secretkey = "Wdf8MIAxXH3m1lyO";
+    public static final String method = "masget.base.register.app";
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private YlLogMapper ylLogMapper;
 
     @Override
     @Transactional
     public Message userRegister(User user, Message message) {
         user.setCreateTime(new Date());
+        //请求时间
+        Date requestDate = new Date();
         int save = userMapper.save(user);
         if (save>0) {
             HashMap<Object, Object> map = new HashMap<>();
@@ -51,8 +52,15 @@ public class UserServiceImpl implements UserService {
             map.put("salesmanId", user.getSalesmanId());
             String json1 = JSON.toJSONString(map);
             log.info("json1========,{}",json1);
-            String s = ApiUtil.methodInvoke(openApiUrl, appid, session, secretkey, "masget.base.register.app", json1);
+            String s = ApiUtil.methodInvoke(openApiUrl, appid, session, secretkey, method, json1);
             log.info("s========,{}",s);
+            YlLog ylLog = new YlLog();
+            ylLog.setRequestContext(appid+"--"+session+"--"+secretkey+"--"+method+"--"+json1);
+            ylLog.setResponseContext(s);
+            ylLog.setRequestTime(requestDate);
+            ylLog.setResponseTime(new Date());
+            int save1 = ylLogMapper.save(ylLog);
+            log.info("银联交互日志记录入库结果，============{}",save1);
             JSONObject jsObj = JSONObject.parseObject(s);
             if ("0".equals(jsObj.getString("ret"))) {
                 log.info("注册成功");
@@ -111,6 +119,12 @@ public class UserServiceImpl implements UserService {
     public int delete(String userPhone) {
         int delete = userMapper.delete(userPhone);
         return delete;
+    }
+
+    @Override
+    public List<User> getAllByLimit(HashMap<Object, Object> map) {
+        List<User> allByLimit = userMapper.getAllByLimit(map);
+        return allByLimit;
     }
 
 

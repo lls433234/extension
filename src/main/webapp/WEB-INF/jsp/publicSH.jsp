@@ -67,7 +67,7 @@
                         </div>
                         <div class="am-u-sm-12 am-u-md-3">
                             <div class="am-input-group am-input-group-sm">
-                                <span id="s3">用户姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="name" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span id="s3">姓名</span>&nbsp;&nbsp;<input class="input" type="text" name="name" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                         </div>
 

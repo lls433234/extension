@@ -22,4 +22,6 @@ public interface UserService {
     List<User> getUser(HashMap<String, String> map);
 
     int delete(String userPhone);
+
+    List<User> getAllByLimit(HashMap<Object, Object> map);
 }

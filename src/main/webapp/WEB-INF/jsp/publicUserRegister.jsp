@@ -29,7 +29,6 @@
 <%--            <h1 class="title_name">91用车用户注册</h1>--%>
             <img class="title_name" src="${pageContext.request.contextPath}/images/91.png" style="margin:0 auto;height: 150px ">
             <form action="publicUserRegister" method="post" role="form" id="form_login" class="login_padding">
-
                 <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
