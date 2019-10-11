@@ -31,9 +31,9 @@ public class ApiUtil {
 			requestObj.put("v", VERSION);
 			requestObj.put("timestamp", timestamp);
 			requestObj.put("sign", signstr);
+			log.info("请求内容==============，{}",requestObj.toJSONString());
 			result = HttpsUtil.doSslPost(openApiUrl,
 					requestObj.toJSONString(), "utf-8");
-			log.info("请求内容==============，{}",requestObj.toJSONString());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			result = ex.getMessage();

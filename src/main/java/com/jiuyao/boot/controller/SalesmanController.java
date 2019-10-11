@@ -208,11 +208,10 @@ public class SalesmanController {
     }
 
 
-
     /**
      * 用户根据二维码进行注册
      */
-    @RequestMapping(value = "/userRegister",method = RequestMethod.POST)
+    @RequestMapping(value = "/userRegisters",method = RequestMethod.GET)
     public ModelAndView userRegister(User user){
         log.info("客户申请数据，{}",user);
         ModelAndView mv = new ModelAndView();
@@ -248,7 +247,7 @@ public class SalesmanController {
             message.setCode(MessageEnum.PARAMETER_ERROR.getCode());
             message.setMsg(MessageEnum.PARAMETER_ERROR.getMessage());
         }
-
+        log.info("走到这儿了");
         mv.setViewName("userRegisterSuccess");
         mv.addObject("msg",message);
         return mv;
@@ -307,7 +306,7 @@ public class SalesmanController {
         System.out.println(publicUser);
         ModelAndView mv = new ModelAndView();
         Message message = new Message();
-        boolean emp = isEmp(publicUser);
+        boolean emp = isEmpPub(publicUser);
         if (emp){
             HashMap<String, String> map = new HashMap<>();
             map.put("name",publicUser.getName());
@@ -384,11 +383,11 @@ public class SalesmanController {
         int update = publicUserService.update(map);
         log.info("更新审核状态结果，{}",update);
         //生成链接
-        String url = "http://39.100.6.47:8085/jiuyao/context/"+salesmanExtensionId;
+        String url = "39.100.6.47:80/context/"+salesmanExtensionId;
         //配置生成路径
         String path = "src/main/resources/static/img";
         //生成文件名称
-        String fileName = name+phone+".png";
+        String fileName = name+"-"+phone+".png";
         if (status.equals("2")){
             QrCodeUtil.createQrCode(url, path, fileName);
             String filePath = path+"/"+fileName;
@@ -411,7 +410,7 @@ public class SalesmanController {
     }
 
 
-    boolean isEmp(PublicUser publicUser){
+    boolean isEmpPub(PublicUser publicUser){
         if (publicUser.getName() != null && !publicUser.getName().equals("") && publicUser.getPhone() != null &&
                 !publicUser.getPhone().equals("") && publicUser.getPassword() != null && !publicUser.getPassword().equals("")){
             return true;

@@ -28,7 +28,7 @@
         <div class="login-content">
 <%--            <h1 class="title_name">用户注册</h1>--%>
             <img class="title_name" src="${pageContext.request.contextPath}/images/91.png" style="margin:0 auto;height: 150px ">
-            <form action="/userRegister" method="post" id="form_login" class="login_padding">
+            <form action="/userRegisters" method="get" id="form_login" class="login_padding">
                 <div class="form-group clearfix">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -67,12 +67,11 @@
                         <input type="text" class="form-control" name="salesmanId" id="salesmanId" autocomplete="off" value="${id}"  readonly="readonly">
                     </div>
                 </div>
-
-                <button class="btn btn-danger btn-block btn-login" ><i class="fa fa-sign-in">注册</i></button>
+<%--                <button class="btn btn-danger btn-block btn-login" type="submit"><i class="fa fa-sign-in">注册</i></button>--%>
+                <button class="btn btn-danger btn-block btn-login" type="submit"><i class="fa fa-sign-in">注册提交</i></button>
                 <h3 style="color:white;">${msg.msg}</h3>
             </form>
         </div>
-
     </div>
 </div>
 
@@ -81,4 +80,6 @@
 <script src="${pageContext.request.contextPath}/js/rAF.js"></script>
 <script src="${pageContext.request.contextPath}/js/demo-1.js"></script>
 </body>
+
+
 </html>

@@ -226,19 +226,43 @@
                     <executable>true</executable>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <skip>true</skip>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <!--配置第三方jar包打包的路径-->
+                        <resource>
+                            <directory>src/main/resources/lib/</directory>
+                            <targetPath>WEB-INF/lib/</targetPath>
+                            <includes>
+                                <include>**/*.jar</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                    <!-- maven打包的时候告诉maven不需要web.xml,否刚会报找不到web.xml错误 -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
         </plugins>
 
-        <resources>
-<!--            <resource>-->
-<!--                <directory>src/main/resources</directory>-->
-<!--                <includes>-->
-<!--                    <include>**/**</include>-->
-<!--                </includes>-->
-<!--                &lt;!&ndash; 开启过滤，用指定的参数替换directory下的文件中的参数 &ndash;&gt;-->
-<!--                <filtering>true</filtering>-->
-<!--            </resource>-->
-        </resources>
     </build>
-
 
 </project>

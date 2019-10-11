@@ -11,7 +11,6 @@ import com.jiuyao.boot.service.UserService;
 import com.jiuyao.boot.utils.method.ApiUtil;
 import com.jiuyao.boot.utils.security.MD5Util;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -23,10 +22,16 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    public static final String openApiUrl="https://test.masget.com:7385/openapi/rest";
-    public static final String appid = "400433579";
-    public static final String session = "5pvowrqo3c168oeltmsv8b1x3l0sr8om";
-    public static final String secretkey = "Wdf8MIAxXH3m1lyO";
+//    public static final String openApiUrl="https://test.masget.com:7385/openapi/rest";
+//    public static final String appid = "400433579";
+//    public static final String session = "5pvowrqo3c168oeltmsv8b1x3l0sr8om";
+//    public static final String secretkey = "Wdf8MIAxXH3m1lyO";
+//    public static final String method = "masget.base.register.app";
+
+    public static final String openApiUrl="https://gw.masget.com:7385/openapi/rest";
+    public static final String appid = "144977839639367680";
+    public static final String session = "3b5f213ba45946a6be3ff42150987770";
+    public static final String secretkey = "c9080cc3caa44396";
     public static final String method = "masget.base.register.app";
 
     @Resource
@@ -78,7 +83,7 @@ public class UserServiceImpl implements UserService {
             message.setMsg("注册失败");
             message.setCode("10001");
         }
-
+        log.info("返回结果================={}",message.toString());
         return message;
     }
 

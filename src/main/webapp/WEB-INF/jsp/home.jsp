@@ -40,23 +40,12 @@
     </ul>
 
 </div>
-<script type="text/javascript">
-    $(function(){
-        $(".leftnav h2").click(function(){
-            $(this).next().slideToggle(200);
-            $(this).toggleClass("on");
-        })
-        $(".leftnav ul li a").click(function(){
-            $("#a_leader_txt").text($(this).text());
-            $(".leftnav ul li a").removeClass("on");
-            $(this).addClass("on");
-        })
-    });
-</script>
 
 <div class="admin">
     <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
 </div>
+
+
 
 </body>
 </html>

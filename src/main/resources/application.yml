@@ -1,7 +1,6 @@
 server:
-  port: 8085
-  servlet:
-    context-path: /jiuyao
+  port: 80
+
 spring:
   mvc:
     view:
