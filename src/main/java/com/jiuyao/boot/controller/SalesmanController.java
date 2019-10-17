@@ -262,9 +262,14 @@ public class SalesmanController {
     @RequestMapping(value = "/context/{id}",method = RequestMethod.GET)
     public ModelAndView test(@PathVariable String id){
         log.info("根据推广码进行用户注册，============={}",id);
+        //TODO
+        //请求银联获取所有核心企业
+        String allHeXin = userService.getAllHeXin();
+        log.info("核心企业查询结果，{}",allHeXin);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("userRegister");
         mv.addObject("id",id);
+//        mv.addObject("allHeXin",allHeXin);
         return mv;
     }
 
@@ -339,7 +344,7 @@ public class SalesmanController {
         return mv;
     }
 
-    /**
+    /**A
      * 业务员审核页面跳转
      * @param
      * @return
@@ -384,6 +389,7 @@ public class SalesmanController {
         log.info("更新审核状态结果，{}",update);
         //生成链接
         String url = "39.100.6.47:80/context/"+salesmanExtensionId;
+//        String url = "192.168.0.100/context/"+salesmanExtensionId;
         //配置生成路径
         String path = "src/main/resources/static/img";
         //生成文件名称

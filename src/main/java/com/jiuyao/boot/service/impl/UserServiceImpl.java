@@ -87,6 +87,19 @@ public class UserServiceImpl implements UserService {
         return message;
     }
 
+    //获取所有核心企业
+    @Override
+    public String getAllHeXin() {
+        log.info("-------------进入银联所有核心企业------------");
+//        Page page = new Page();
+//        page.setPageNum(1);
+//        page.setPageSize(100);
+//        String s1 = JSONObject.toJSON(page).toString();
+        String s = ApiUtil.methodInvoke(openApiUrl, appid, session, secretkey, "masget.base.hcompany.get", "s1");
+        log.info("查询核心企业的结果集{}",s);
+        return s;
+    }
+
     /**
      * 获取所有业务员绑定用户
      * @return
@@ -134,8 +147,10 @@ public class UserServiceImpl implements UserService {
 
 
     public static void main(String[] args) {
-        String str = "123456";
-        String s = MD5Util.string2MD5(str);
-        System.out.println(s);
+//        String str = "123456";
+//        String s = MD5Util.string2MD5(str);
+//        System.out.println(s);
+//        String s = ApiUtil.methodInvoke(openApiUrl, appid, session, secretkey, "masget.base.hcompany.get", "");
+//        System.out.println(s);
     }
 }

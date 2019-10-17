@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface UserService {
 
-
     Message userRegister(User user, Message message);
+
+    String getAllHeXin();
 
     List<User> getAll();
 

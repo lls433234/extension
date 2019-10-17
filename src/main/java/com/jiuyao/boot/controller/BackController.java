@@ -4,8 +4,6 @@ import com.jiuyao.boot.entity.Page;
 import com.jiuyao.boot.entity.PublicUser;
 import com.jiuyao.boot.entity.Salesman;
 import com.jiuyao.boot.entity.User;
-import com.jiuyao.boot.entity.dto.Message;
-import com.jiuyao.boot.entity.dto.MessageEnum;
 import com.jiuyao.boot.service.PublicUserService;
 import com.jiuyao.boot.service.SalesmanService;
 import com.jiuyao.boot.service.UserService;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.HashMap;
 import java.util.List;
 

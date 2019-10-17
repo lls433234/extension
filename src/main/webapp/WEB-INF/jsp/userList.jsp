@@ -58,12 +58,12 @@
 					<div class="container" style="padding: 50px 10px 0px 10px">
 						<form action="getUserByParam" method="post">
 							<div class="am-g">
-								<div class="am-u-sm-12 am-u-md-2">
+								<div class="am-u-sm-12 am-u-md-3">
 									<div class="am-input-group am-input-group-sm">
 										<span id="s1">推广码</span>&nbsp;&nbsp;<input class="input" type="text" name="salesmanId"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 								</div>
-								<div class="am-u-sm-12 am-u-md-2">
+								<div class="am-u-sm-12 am-u-md-3">
 									<div class="am-input-group am-input-group-sm">
 										<span id="s2">电话号</span>&nbsp;&nbsp;<input class="input" type="text" name="userPhone" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
